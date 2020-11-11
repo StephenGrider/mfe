@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useState, useEffect } from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import {
   StylesProvider,
   createGenerateClassName,
@@ -25,8 +25,6 @@ export default () => {
   useEffect(() => {
     if (isSignedIn) {
       history.push('/dashboard');
-    } else {
-      history.push('/auth/signin');
     }
   }, [isSignedIn]);
 
@@ -43,7 +41,10 @@ export default () => {
               <Route path="/auth">
                 <AuthLazy onSignIn={() => setIsSignedIn(true)} />
               </Route>
-              <Route path="/dashboard" component={DashboardLazy} />
+              <Route path="/dashboard">
+                {!isSignedIn && <Redirect to="/auth/signin" />}
+                <DashboardLazy />
+              </Route>
               <Route path="/" component={MarketingLazy} />
             </Switch>
           </Suspense>
