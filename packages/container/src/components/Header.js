@@ -62,7 +62,9 @@ export default function Header({ isSignedIn, onSignOut }) {
       onSignOut();
     }
   };
-
+// const onClickDashboard = () => {
+  
+// }
   return (
     <React.Fragment>
       <AppBar
@@ -90,6 +92,16 @@ export default function Header({ isSignedIn, onSignOut }) {
             onClick={onClick}
           >
             {isSignedIn ? 'Logout' : 'Login'}
+          </Button>
+           <Button
+            color="primary"
+            variant="outlined"
+            className={classes.link}
+            component={RouterLink}
+            to={'/dashboard'}
+            //onClick={onClickDashboard}
+          >
+            Dashboard
           </Button>
         </Toolbar>
       </AppBar>
