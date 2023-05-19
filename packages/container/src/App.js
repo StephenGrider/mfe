@@ -8,7 +8,7 @@ import { createBrowserHistory } from 'history';
 
 import Progress from './components/Progress';
 import Header from './components/Header';
-//import DashboardApp from './components/DashboardApp';
+import Footer from './components/Footer';
 
 const MarketingLazy = lazy(() => import('./components/MarketingApp'));
 const AuthLazy = lazy(() => import('./components/AuthApp'));
@@ -43,12 +43,14 @@ export default () => {
               <Route path="/auth">
                 <AuthLazy onSignIn={() => setIsSignedIn(true)} />
               </Route>
-              <Route path="/dashboard">
+              <Route path="/dashboard" >                
                 <DashboardLazy />
               </Route>
               <Route path="/" component={MarketingLazy} />
             </Switch>
+            <Footer />
           </Suspense>
+          
         </div>
       </StylesProvider>
     </Router>

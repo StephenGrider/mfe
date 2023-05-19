@@ -8,7 +8,7 @@ import {
 import Dashboard from './components/Dashboard';
 
 const generateClassName = createGenerateClassName({
-  productionPrefix: 'ma',
+  productionPrefix: 'da',
 });
 
 export default ({ history }) => {
@@ -17,7 +17,10 @@ export default ({ history }) => {
       <StylesProvider generateClassName={generateClassName}>
         <Router history={history}>
           <Switch>
-            <Route exact path="/" component={Dashboard} />
+            <Route path="/">
+              {/* {!isSignedIn && <Redirect to="/auth/signin" />} */}
+              <Dashboard  />
+            </Route>
           </Switch>
         </Router>
       </StylesProvider>

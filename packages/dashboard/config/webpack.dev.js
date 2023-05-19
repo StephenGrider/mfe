@@ -22,6 +22,11 @@ const devConfig = {
       exposes: {
         './DashboardApp': './src/bootstrap',
       },
+      remotes: {
+        marketing: 'marketing@http://localhost:8011/remoteEntry.js',
+        auth: 'auth@http://localhost:8012/remoteEntry.js',
+        dashboard: 'dashboard@http://localhost:8013/remoteEntry.js',
+      },
       shared: packageJson.dependencies,
     }),
     new HtmlWebpackPlugin({

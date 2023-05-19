@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -49,7 +49,64 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp({ onSignIn }) {
   const classes = useStyles();
+  const [id, idchange] = useState("");
+  const [name, namechange] = useState("");
+  const [password, passwordchange] = useState("");
+  const [email, emailchange] = useState("");
 
+ // const navigate = useNavigate();
+
+  const IsValidate = () => {
+      let isproceed = true;
+      let errormessage = 'Please enter the value in ';
+      if (id === null || id === '') {
+          isproceed = false;
+          errormessage += ' Username';
+      }
+      if (name === null || name === '') {
+          isproceed = false;
+          errormessage += ' Fullname';
+      }
+      if (password === null || password === '') {
+          isproceed = false;
+          errormessage += ' Password';
+      }
+      if (email === null || email === '') {
+          isproceed = false;
+          errormessage += ' Email';
+      }
+
+      if(!isproceed){
+          toast.warning(errormessage)
+      }else{
+          if(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)){
+
+          }else{
+              isproceed = false;
+              toast.warning('Please enter the valid email')
+          }
+      }
+      return isproceed;
+  }
+
+
+  const handlesubmit = (e) => {
+          e.preventDefault();
+          let regobj = { userName, name, password, email};
+          if (IsValidate()) {
+          //console.log(regobj);
+          fetch("https://localhost:7007/api/Users", {
+              method: "POST",
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify(regobj)
+          }).then((res) => {
+              toast.success('Registered successfully.')
+              //navigate('/login');
+          }).catch((err) => {
+              toast.error('Failed :' + err.message);
+          });
+      }
+  }
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
@@ -60,11 +117,24 @@ export default function SignUp({ onSignIn }) {
           Sign up
         </Typography>
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handlesubmit}
           className={classes.form}
           noValidate
         >
           <Grid container spacing={2}>
+          <Grid item xs={12} sm={12}>
+              <TextField
+                autoComplete="username"
+                name="username"
+                variant="outlined"
+                required
+                fullWidth
+                id="username"
+                label="User Name"
+                autoFocus
+                value={id} onChange={e => idchange(e.target.value)} 
+              />
+            </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
@@ -75,6 +145,7 @@ export default function SignUp({ onSignIn }) {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={name} onChange={e => namechange(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -97,6 +168,7 @@ export default function SignUp({ onSignIn }) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email} onChange={e => emailchange(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -109,6 +181,7 @@ export default function SignUp({ onSignIn }) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password} onChange={e => passwordchange(e.target.value)} t
               />
             </Grid>
             <Grid item xs={12}>
@@ -124,7 +197,7 @@ export default function SignUp({ onSignIn }) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={onSignIn}
+            //onClick={onSignIn}
           >
             Sign Up
           </Button>
