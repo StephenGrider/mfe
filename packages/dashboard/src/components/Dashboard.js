@@ -1,47 +1,43 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { alpha, makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import ChartTwo from './ChartTwo';
-import Orders from './Orders';
-import Avatar from '@material-ui/core/Avatar';
-import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import blueGrey from '@material-ui/core/colors/red';
+import Paper from '@material-ui/core/Paper';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import VerticalAlignBottomSharpIcon from '@material-ui/icons/VerticalAlignBottomSharp';
 import TouchAppSharpIcon from '@material-ui/icons/TouchAppSharp';
 import WrapTextSharpIcon from '@material-ui/icons/WrapTextSharp';
 import PeopleAltSharpIcon from '@material-ui/icons/PeopleAltSharp';
-import blueGrey from '@material-ui/core/colors/red';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Chart from './Chart';
+import ChartTwo from './ChartTwo';
+import Orders from './Orders';
+import Badge from '@material-ui/core/Badge';
+import Avatar from '@material-ui/core/Avatar';
+import { mainListItems, secondaryListItems } from './listItems';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import Popper from '@material-ui/core/Popper';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Chip from '@material-ui/core/Chip';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
+import MoreIcon from '@material-ui/icons/MoreVert';
 const primary = blueGrey[500];
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
 
 const drawerWidth = 240;
 const StyledBadge = withStyles((theme) => ({
@@ -75,27 +71,21 @@ const StyledBadge = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    
   },
+  grow: {
+    flexGrow: 1,
+  },
+  appLogo: {
+    width: "calc(100% - 30%)",
+},
   cardLayout: {
     display: 'flex',
     '& > *': {
-      margin: theme.spacing(2),
-      width: theme.spacing(16),
+      margin: theme.spacing(1),
+      width: theme.spacing(8),
       flexBasis: "25%",
       padding: "30px 30px"
     },
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    color:"#FFF",
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -114,46 +104,58 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
+   
   },
-  menuButtonHidden: {
+  white:{
+    color:"#FFF !important"
+  },
+  hide: {
     display: 'none',
   },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    backgroundColor: "rgb(28, 37, 54)",
-    color: "rgb(255, 255, 255) !important",
+  drawer: {
     width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    background: "#37474f",
+    color:"#FFF",
+  },
+  drawerOpen: {
+    width: drawerWidth,    
+    background: "#37474f",
+    color:"#FFF",
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    backgroundColor: "rgb(28, 37, 54)",
-    color: "rgb(255, 255, 255) !important",
+  drawerClose: {   
+    background: "#37474f",
+    color:"#FFF",
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    width: theme.spacing(7),
+    overflowX: 'hidden',
+    width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
+      width: theme.spacing(9) + 1,
     },
   },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    //flexGrow: 1,
-    //height: '100vh',
-    //overflow: 'auto',
+  toolbar: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
   },
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1),
   },
   paper: {
     padding: theme.spacing(2),
@@ -164,79 +166,249 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 440,
   },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+  sectionDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
+  },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
 }));
 
 export default function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const handleMobileMenuOpenOwn = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
   const handleDrawerOpen = () => {
     setOpen(true);
+  };
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  
+  const [openMenu, setOpenMenu] = React.useState(false);
+  const anchorRefMenu = React.useRef(null);
 
+  const handleToggleMenu = () => {
+    setOpenMenu((prevOpen) => !prevOpen);
+  };
+
+  const handleCloseMenu = (event) => {
+    if (anchorRefMenu.current && anchorRefMenu.current.contains(event.target)) {
+      return;
+    }
+
+    setOpenMenu(false);
+  };
+
+  function handleListKeyDownMenu(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpenMenu(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(openMenu);
+  React.useEffect(() => {
+    if (prevOpen.current === true && openMenu === false) {
+      anchorRefMenu.current.focus();
+    }
+
+    prevOpen.current = openMenu;
+  }, [openMenu]);
+  
+  const handleClickAvata = () => {
+    console.info('You clicked the Chip.');
+  };
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (
     <div className={classes.root}>
+
       <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)} color={primary}>
-        <Toolbar className={classes.toolbar}>
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
           <IconButton
-            edge="start"
-            style={{color:"#FFF !important"}}
+            color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+            edge="start"
+            className={clsx(classes.menuButton, {
+              [classes.hide]: open,
+            })}
           >
-            <MenuIcon style={{background:"#FFF !important"}} />
+            <MenuIcon className={classes.white}/>
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          <Typography variant="h6" noWrap>
             Dashboard
           </Typography>
-          {/* <IconButton color="inherit">
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </div>
+          <div className={classes.grow} />
+          <div className={classes.sectionDesktop}>
+          <IconButton color="inherit">
             <Badge badgeContent={4} >
               <NotificationsIcon />
             </Badge>
-          </IconButton> */}
+          </IconButton>
+          
+        <Button
+          ref={anchorRefMenu}
+          aria-controls={openMenu ? 'menu-list-grow' : undefined}
+          aria-haspopup="true"
+          onClick={handleToggleMenu}
+        >
           <StyledBadge
             overlap="circular"
             anchorOrigin={{
               vertical: 'bottom',
-              horizontal: 'right',
+              horizontal: 'left',
             }}
             variant="dot"
-          >
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          ><Chip
+          avatar={<Avatar size="medium" alt="Remy Sharp" src="https://v4.mui.com/static/images/avatar/1.jpg" className={classes.large} />}
+          label="Clickable"
+          onClick={handleClickAvata}
+          variant="outlined"
+        />
           </StyledBadge>
+        </Button>
+        <Popper open={openMenu} anchorEl={anchorRefMenu.current} role={undefined} transition disablePortal>
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            >
+              <Paper>
+                <ClickAwayListener onClickAway={handleCloseMenu}>
+                  <MenuList autoFocusItem={openMenu} id="menu-list-grow" onKeyDown={handleListKeyDownMenu}>
+                    <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
+                    <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+                    <MenuItem onClick={handleCloseMenu}>Logout</MenuItem>
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+      </div>
+      <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpenOwn}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
+       color="inherit"
         variant="permanent"
+        className={clsx(classes.drawer, {
+          [classes.drawerOpen]: open,
+          [classes.drawerClose]: !open,
+        })}
         classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          paper: clsx({
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          }),
         }}
-        open={open}
-        //bgcolor="text.primary"
       >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
+        <div className={classes.toolbar}>
+          <img src={require("./logo2.png").default} className={classes.appLogo}  alt="logo" />
+         <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon style={{color:"#FFF"}} />
           </IconButton>
         </div>
         <Divider />
         <List>{mainListItems}</List>
         <Divider />
-        <List>{secondaryListItems}</List>
+        <List>
+        {secondaryListItems}
+        </List>
       </Drawer>
-      <main className={classes.content}>
+
+      <Container maxWidth="xxl" className={classes.content}>
         <div className={classes.appBarSpacer} />
         <div className={classes.cardLayout}>
           <Paper variant="outlined">
             <span style={{ fontSize: "15px", fontWeight: '300' }}>  BUDGET<br />
               <span style={{ fontSize: "35px", fontWeight: 'bold' }}>$24k</span>
-              <span style={{ padding: "20px", float: "right", margin: "-20px 0px 0px 0px", 
-              background: "rgb(240, 68, 56)", borderRadius: "100%", display: 'flex', justifyContent: "center", alignItems: "center", height: "50px", width: "50px" }} ><MonetizationOnIcon style={{ fontSize: "25px", color: "#FFF" }} /></span>
+              <span style={{
+                padding: "20px", float: "right", margin: "-20px 0px 0px 0px",
+                background: "rgb(240, 68, 56)", borderRadius: "100%", display: 'flex', justifyContent: "center", alignItems: "center", height: "50px", width: "50px"
+              }} ><MonetizationOnIcon style={{ fontSize: "25px", color: "#FFF" }} /></span>
             </span>
             <div>
               <span style={{ fontSize: "12px", fontWeight: '300', color: "rgb(240, 68, 56)" }}><VerticalAlignBottomSharpIcon style={{ marginTop: "13px", verticalAlign: "-7" }} /> 12% </span>
@@ -246,13 +418,15 @@ export default function Dashboard() {
           <Paper variant="outlined">
             <span style={{ fontSize: "15px", fontWeight: '300' }}>  TOTAL CUSTOMERS<br />
               <span style={{ fontSize: "35px", fontWeight: 'bold' }}>1.6k</span>
-              <span style={{ padding: "20px", 
-              float: "right",
-               margin: "-20px 0px 0px 0px", 
-               background: "rgb(16, 185, 129)", 
-               borderRadius: "100%", display: 'flex', justifyContent: "center", 
-               alignItems: "center", height: "50px", 
-               width: "50px" }} ><TouchAppSharpIcon style={{ fontSize: "25px", color: "#FFF" }} /></span>
+              <span style={{
+                padding: "20px",
+                float: "right",
+                margin: "-20px 0px 0px 0px",
+                background: "rgb(16, 185, 129)",
+                borderRadius: "100%", display: 'flex', justifyContent: "center",
+                alignItems: "center", height: "50px",
+                width: "50px"
+              }} ><TouchAppSharpIcon style={{ fontSize: "25px", color: "#FFF" }} /></span>
             </span>
             <div>
               <span style={{ fontSize: "12px", fontWeight: '300', color: "rgb(16, 185, 129)" }}><VerticalAlignBottomSharpIcon style={{ marginTop: "13px", verticalAlign: "-7" }} /> 12% </span>
@@ -262,12 +436,14 @@ export default function Dashboard() {
           <Paper variant="outlined">
             <span style={{ fontSize: "15px", fontWeight: '300' }}>  TASK PROGRESS<br />
               <span style={{ fontSize: "35px", fontWeight: 'bold' }}>75.5%</span>
-              <span style={{ padding: "20px", 
-              float: "right", margin: "-20px 0px 0px 0px", 
-              background: "rgb(247, 144, 9)", borderRadius: "100%", 
-              display: 'flex', justifyContent: "center", 
-              alignItems: "center", height: "50px", 
-              width: "50px" }} ><WrapTextSharpIcon style={{ fontSize: "25px", color: "#FFF" }} /></span>
+              <span style={{
+                padding: "20px",
+                float: "right", margin: "-20px 0px 0px 0px",
+                background: "rgb(247, 144, 9)", borderRadius: "100%",
+                display: 'flex', justifyContent: "center",
+                alignItems: "center", height: "50px",
+                width: "50px"
+              }} ><WrapTextSharpIcon style={{ fontSize: "25px", color: "#FFF" }} /></span>
             </span>
             <div>
               <span style={{ fontSize: "12px", fontWeight: '300', color: "rgb(247, 144, 9)" }}><VerticalAlignBottomSharpIcon style={{ marginTop: "13px", verticalAlign: "-7" }} /> 12% </span>
@@ -277,19 +453,20 @@ export default function Dashboard() {
           <Paper variant="outlined">
             <span style={{ fontSize: "15px", fontWeight: '300' }}>  TOTAL PROFIT<br />
               <span style={{ fontSize: "35px", fontWeight: 'bold' }}>$24k</span>
-              <span style={{ 
-                padding: "20px", 
-                float: "right", 
-                margin: "-20px 0px 0px 0px", 
-                background: "rgb(99, 102, 241)", 
-                borderRadius: "100%", 
-                display: 'flex', 
-                justifyContent: "center", 
-                alignItems: "center", 
-                height: "50px", 
-                width: "50px" }} >
-                  <PeopleAltSharpIcon style={{ fontSize: "25px", color: "#FFF" }} />
-                  </span>
+              <span style={{
+                padding: "20px",
+                float: "right",
+                margin: "-20px 0px 0px 0px",
+                background: "rgb(99, 102, 241)",
+                borderRadius: "100%",
+                display: 'flex',
+                justifyContent: "center",
+                alignItems: "center",
+                height: "50px",
+                width: "50px"
+              }} >
+                <PeopleAltSharpIcon style={{ fontSize: "25px", color: "#FFF" }} />
+              </span>
             </span>
             <div>
               <span style={{ fontSize: "12px", fontWeight: '300', color: "rgb(99, 102, 241)" }}><VerticalAlignBottomSharpIcon style={{ marginTop: "13px", verticalAlign: "-7" }} /> 12% </span>
@@ -297,7 +474,7 @@ export default function Dashboard() {
             </div>
           </Paper>
         </div>
-        <Container maxWidth="lg" className={classes.container}>
+        <Container maxWidth="xxl" className={classes.content}>
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={7} lg={9}>
@@ -309,9 +486,9 @@ export default function Dashboard() {
             <Grid item xs={12} md={5} lg={3}>
               <Paper className={fixedHeightPaper}>
                 <ChartTwo />
-                
+
               </Paper>
-              
+
             </Grid>
             {/* Recent Orders */}
             <Grid item xs={12}>
@@ -320,9 +497,9 @@ export default function Dashboard() {
               </Paper>
             </Grid>
           </Grid>
-
         </Container>
-      </main>
+        
+      </Container>
     </div>
   );
 }

@@ -13,31 +13,31 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 export const mainListItems = (
   <div>
     <ListItem button>
-      <ListItemIcon style={{minWidth:"40px"}}>
+      <ListItemIcon >
         <DashboardIcon style={{color:"#FFF"}}/>
       </ListItemIcon>
       <ListItemText primary="Dashboard"  />
     </ListItem>
     <ListItem button>
-      <ListItemIcon style={{minWidth:"40px"}}>
+      <ListItemIcon >
         <ShoppingCartIcon style={{color:"#FFF"}}/>
       </ListItemIcon>
       <ListItemText primary="Orders" />
     </ListItem>
     <ListItem button>
-      <ListItemIcon style={{minWidth:"40px"}}>
+      <ListItemIcon >
         <PeopleIcon style={{color:"#FFF"}}/>
       </ListItemIcon>
       <ListItemText primary="Customers" />
     </ListItem>
     <ListItem button>
-      <ListItemIcon style={{minWidth:"40px"}}>
+      <ListItemIcon >
         <BarChartIcon style={{color:"#FFF"}}/>
       </ListItemIcon>
       <ListItemText primary="Reports" />
     </ListItem>
     <ListItem button>
-      <ListItemIcon style={{minWidth:"40px"}}>
+      <ListItemIcon >
         <LayersIcon style={{color:"#FFF"}}/>
       </ListItemIcon>
       <ListItemText primary="Integrations" />
@@ -47,21 +47,20 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
     <ListItem button>
-      <ListItemIcon style={{minWidth:"40px"}}>
+      <ListItemIcon >
         <AssignmentIcon style={{color:"#FFF"}}/>
       </ListItemIcon>
       <ListItemText primary="Current month" />
     </ListItem>
     <ListItem button>
-      <ListItemIcon style={{minWidth:"40px"}}>
+      <ListItemIcon >
         <AssignmentIcon style={{color:"#FFF"}} />
       </ListItemIcon>
       <ListItemText primary="Last quarter" />
     </ListItem>
     <ListItem button>
-      <ListItemIcon style={{minWidth:"40px"}}>
+      <ListItemIcon >
         <AssignmentIcon style={{color:"#FFF"}}/>
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />

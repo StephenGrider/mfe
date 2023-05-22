@@ -79,7 +79,7 @@ export default function Header({ isSignedIn, onSignOut }, props) {
             component={RouterLink}
             to="/"
           >
-            App
+            <img src={require("./logo.svg").default} className={classes.appLogo}  alt="logo" />
           </Typography>
           <Button
             color="secondary"

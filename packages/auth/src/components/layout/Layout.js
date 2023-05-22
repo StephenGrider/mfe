@@ -3,7 +3,7 @@ import { Box, Typography, Grid, Link } from "@material-ui/core";
 
 
 const Layout = () => {
-  const imgElem = <img src={"https://kyanite360.com/upload/domain/22218/images/Kyanite_360/logo.png"} alt="logo" />;
+  const imgElem = <img src={"./logo.svg"} alt="logo" />;
 
   return (
     <Box
