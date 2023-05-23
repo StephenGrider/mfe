@@ -3,7 +3,7 @@ import { Box, Typography, Grid, Link } from "@material-ui/core";
 
 
 const Layout = () => {
-  const imgElem = <img src={"./logo.svg"} alt="logo" />;
+  const imgElem = <img src={require("./logo.svg").default} alt="logo" />;
 
   return (
     <Box

@@ -37,24 +37,6 @@ import Chip from '@material-ui/core/Chip';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { Link } from '@material-ui/core';
-
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import { useHistory } from "react-router-dom";
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import SideBarMenu from './SideBarMenu';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import LastQuarter from './LastQuarter';
-import CurrentMonth from './CurrentMonth';
-import Customers from './Customers';
 const primary = blueGrey[500];
 
 const drawerWidth = 240;
@@ -241,10 +223,6 @@ export default function Dashboard() {
   const [open, setOpen] = React.useState(false);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const mobileMenuId = 'primary-search-account-menu-mobile';
-
-
-let usenavigate=useHistory();
-
   const handleMobileMenuOpenOwn = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -317,7 +295,7 @@ let usenavigate=useHistory();
             <MenuIcon className={classes.white}/>
           </IconButton>
           <Typography variant="h6" noWrap>
-            Dashboard
+          My Account
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -370,9 +348,9 @@ let usenavigate=useHistory();
               <Paper>
                 <ClickAwayListener onClickAway={handleCloseMenu}>
                   <MenuList autoFocusItem={openMenu} id="menu-list-grow" onKeyDown={handleListKeyDownMenu}>
-                    <MenuItem onClick={handleCloseMenu}><Link to="./Profile">Profile</Link></MenuItem>
-                    <MenuItem onClick={handleCloseMenu}><Link to="./MyAccount">My account</Link></MenuItem>
-                    <MenuItem onClick={handleCloseMenu}><Link to="./Logout">Logout</Link></MenuItem>
+                    <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
+                    <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+                    <MenuItem onClick={handleCloseMenu}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -413,79 +391,11 @@ let usenavigate=useHistory();
             <ChevronLeftIcon style={{color:"#FFF"}} />
           </IconButton>
         </div>
-      
-        <div>
-          <Link href={'/'} >
-            <ListItemIcon >
-              <DashboardIcon style={{color:"#FFF"}}/>
-            </ListItemIcon>
-            <ListItemText primary="Dashboard"  />
-          </Link>
-          <Link href={'/orders'} >
-            <ListItemIcon >
-              <DashboardIcon style={{color:"#FFF"}}/>
-            </ListItemIcon>
-            <ListItemText primary="Orders"  />
-          </Link>
-          <Link href={'/customers'} >
-            <ListItemIcon >
-              <DashboardIcon style={{color:"#FFF"}}/>
-            </ListItemIcon>
-            <ListItemText primary="Customers"  />
-          </Link>
-    <ListItem button onClick={() => usenavigate.push('/')}>
-      <ListItemIcon >
-        <DashboardIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Dashboard"  />
-    </ListItem>
-    <ListItem button onClick={() => usenavigate.push('/orders')}>
-      <ListItemIcon >
-        <ShoppingCartIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItem>
-    <ListItem button onClick={() => usenavigate.push('/customers')}>
-      <ListItemIcon >
-        <PeopleIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItem>
-    <ListItem button  onClick={() => usenavigate.push('/reports')}>
-      <ListItemIcon >
-        <BarChartIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItem>
-    <ListItem button  onClick={() => usenavigate.push('/integrations')}>
-      <ListItemIcon >
-        <LayersIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItem>
-  </div>
+        <Divider />
+        <List>{mainListItems}</List>
         <Divider />
         <List>
-        <div>
-    <ListItem button onClick={() => usenavigate.push('/currentmonth')}>
-      <ListItemIcon >
-        <AssignmentIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    <ListItem button onClick={() => usenavigate.push('/lastquarter')}>
-      <ListItemIcon >
-        <AssignmentIcon style={{color:"#FFF"}} />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button onClick={() => usenavigate.push('/yearendsale')}>
-      <ListItemIcon >
-        <AssignmentIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
-  </div>
+        {secondaryListItems}
         </List>
       </Drawer>
 

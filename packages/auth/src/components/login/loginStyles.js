@@ -34,8 +34,9 @@ display:"none"
     },
   },
   layoutContainer: {
-    maxWidth: "50%",
-    marginRight: 0,
+    maxWidth: "50% !important",
+    marginRight: "0 !important",
+    
    // height: "100vh",
     color: "white",
     background:

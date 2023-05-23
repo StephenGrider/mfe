@@ -83,26 +83,13 @@ export default function SignIn({ onSignIn }) {
                      toast.success('Success');
                      sessionStorage.setItem('username',username);
                      sessionStorage.setItem('jwttoken',resp.jwtToken);
-if(toast.success('Success')){
-  usenavigate.push('/dashboard')
-}else{
-  usenavigate.push('/auth/signin')
-}
-                     
-                     console.log('jwttoken===========', resp.jwtToken)
-                     console.log('username================',username)
+                    if(toast.success('Success')){
+                      usenavigate.push('/dashboard')
+                    }else{
+                      usenavigate.push('/profile')
+                    }
                 }
-                // if (Object.keys(resp).length === 0) {
-                //     toast.error('Please Enter valid username');
-                // } else {
-                //     if (resp.password === password) {
-                //         toast.success('Success');
-                //         sessionStorage.setItem('username',username);
-                //         usenavigate('/')
-                //     }else{
-                //         toast.error('Please Enter valid credentials');
-                //     }
-                // }
+                
             }).catch((err) => {
                 toast.error('Login Failed due to :' + err.message);
             });
@@ -122,7 +109,8 @@ if(toast.success('Success')){
     }
 
   return (<div className={classes.container}>
-    <Container component="main" maxWidth="xs" style={{alignItems: "stretch"}}>
+    <Container maxWidth="xs" style={{alignItems: "stretch", 
+     maxWidth: "50% !important", margin: "0px !important"}}>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -186,7 +174,8 @@ if(toast.success('Success')){
       </div>
       <div className={classes.leftside}></div>    
     </Container>
-    <Container component="main" className={classes.layoutContainer} style={{alignItems: "stretch"}}>
+    <Container  className={classes.layoutContainer} style={{alignItems: "stretch", 
+     maxWidth: "50% !important", margin: "0px !important"}}>
     <div className={classes.layout}>
       <Layout />
     </div>

@@ -1,16 +1,9 @@
 module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: '[name].[contenthash].js',
-  },
-  resolve: {
-    extensions: ['.js'],
-  },
   module: {
     rules: [
       {
         test: /\.(png|jpe?g|gif|woff|svg|eot|ttf)$/i,
-        use: [{ loader: 'url-loader'}],
+        use: [{ loader: 'file-loader'}],
       },
       {
         test: /\.scss|\.css$/,
@@ -28,5 +21,5 @@ module.exports = {
         },
       },
     ],
-  },
+  },  
 };
