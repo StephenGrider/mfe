@@ -23,20 +23,17 @@ export default ({ history }) => {
        <StylesProvider generateClassName={generateClassName}>
         <Router history={history}>
           <Switch>
-            <Route path="/">
+            <Route path="/dashboard">
               {/* {!isSignedIn && <Redirect to="/auth/signin" />} */}
               <Dashboard  />
             </Route>
-            <Route path="/currentMonth" component={CurrentMonth} />
-            <Route path="/customers" component={Customers} />
-            <Route path="/integrations" component={Integrations} />
-            <Route path="/lastQuarter" component={LastQuarter} />
-            <Route path="/reports" component={Reports} />
-            <Route path="/yearEndSale" component={YearEndSale} />
-            <Route path="/orders" component={Orders} />
-          
-            {/* <Route path="/dashboard/orders" exact element={<Orders />} component={Orders} />
-            <Route path="/dashboard/customers" component={Customers}/> */}
+            <Route path="/dashboard/currentMonth" component={CurrentMonth} />
+            <Route path="/dashboard/customers" component={Customers} />
+            <Route path="/dashboard/integrations" component={Integrations} />
+            <Route path="/dashboard/lastQuarter" component={LastQuarter} />
+            <Route path="/dashboard/reports" component={Reports} />
+            <Route path="/dashboard/yearEndSale" component={YearEndSale} />
+            <Route path="/dashboard/orders" component={Orders} />
           </Switch>
         </Router>
       </StylesProvider>

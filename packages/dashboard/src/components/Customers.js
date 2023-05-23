@@ -372,7 +372,7 @@ export default function Customers() {
         </Toolbar>
       </AppBar>
       <Drawer
-       color="inherit"
+        color="inherit"
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -386,16 +386,84 @@ export default function Customers() {
         }}
       >
         <div className={classes.toolbar}>
-          <img src={require("./logo2.png").default} className={classes.appLogo}  alt="logo" />
-         <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon style={{color:"#FFF"}} />
+          <img src={require("./logo2.png").default} className={classes.appLogo} alt="logo" />
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon style={{ color: "#FFF" }} />
           </IconButton>
         </div>
-        <Divider />
-        <List>{mainListItems}</List>
+
+        <div>
+          <Link href={'/'} >
+            <ListItemIcon >
+              <DashboardIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </Link>
+          <Link href={'/orders'} >
+            <ListItemIcon >
+              <DashboardIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Orders" />
+          </Link>
+          <Link href={'/customers'} >
+            <ListItemIcon >
+              <DashboardIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Customers" />
+          </Link>
+          <ListItem button onClick={() => usenavigate.push('/')}>
+            <ListItemIcon >
+              <DashboardIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/orders')}>
+            <ListItemIcon >
+              <ShoppingCartIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Orders" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/customers')}>
+            <ListItemIcon >
+              <PeopleIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Customers" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/reports')}>
+            <ListItemIcon >
+              <BarChartIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Reports" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/integrations')}>
+            <ListItemIcon >
+              <LayersIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Integrations" />
+          </ListItem>
+        </div>
         <Divider />
         <List>
-        {secondaryListItems}
+          <div>
+            <ListItem button onClick={() => usenavigate.push('/currentmonth')}>
+              <ListItemIcon >
+                <AssignmentIcon style={{ color: "#FFF" }} />
+              </ListItemIcon>
+              <ListItemText primary="Current month" />
+            </ListItem>
+            <ListItem button onClick={() => usenavigate.push('/lastquarter')}>
+              <ListItemIcon >
+                <AssignmentIcon style={{ color: "#FFF" }} />
+              </ListItemIcon>
+              <ListItemText primary="Last quarter" />
+            </ListItem>
+            <ListItem button onClick={() => usenavigate.push('/yearendsale')}>
+              <ListItemIcon >
+                <AssignmentIcon style={{ color: "#FFF" }} />
+              </ListItemIcon>
+              <ListItemText primary="Year-end sale" />
+            </ListItem>
+          </div>
         </List>
       </Drawer>
 

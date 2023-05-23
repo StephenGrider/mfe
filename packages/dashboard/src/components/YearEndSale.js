@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appLogo: {
     width: "calc(100% - 30%)",
-},
+  },
   cardLayout: {
     display: 'flex',
     '& > *': {
@@ -104,10 +104,10 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
-   
+
   },
-  white:{
-    color:"#FFF !important"
+  white: {
+    color: "#FFF !important"
   },
   hide: {
     display: 'none',
@@ -117,20 +117,20 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     whiteSpace: 'nowrap',
     background: "#37474f",
-    color:"#FFF",
+    color: "#FFF",
   },
   drawerOpen: {
-    width: drawerWidth,    
+    width: drawerWidth,
     background: "#37474f",
-    color:"#FFF",
+    color: "#FFF",
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  drawerClose: {   
+  drawerClose: {
     background: "#37474f",
-    color:"#FFF",
+    color: "#FFF",
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -235,7 +235,7 @@ export default function YearEndSale() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  
+
   const [openMenu, setOpenMenu] = React.useState(false);
   const anchorRefMenu = React.useRef(null);
 
@@ -267,7 +267,7 @@ export default function YearEndSale() {
 
     prevOpen.current = openMenu;
   }, [openMenu]);
-  
+
   const handleClickAvata = () => {
     console.info('You clicked the Chip.');
   };
@@ -292,10 +292,10 @@ export default function YearEndSale() {
               [classes.hide]: open,
             })}
           >
-            <MenuIcon className={classes.white}/>
+            <MenuIcon className={classes.white} />
           </IconButton>
           <Typography variant="h6" noWrap>
-          Year End Sale
+            Year End Sale
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -312,53 +312,53 @@ export default function YearEndSale() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          
-        <Button
-          ref={anchorRefMenu}
-          aria-controls={openMenu ? 'menu-list-grow' : undefined}
-          aria-haspopup="true"
-          onClick={handleToggleMenu}
-        >
-          <StyledBadge
-            overlap="circular"
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            variant="dot"
-          ><Chip
-          avatar={<Avatar size="medium" alt="Remy Sharp" src="https://v4.mui.com/static/images/avatar/1.jpg" className={classes.large} />}
-          label="Clickable"
-          onClick={handleClickAvata}
-          variant="outlined"
-        />
-          </StyledBadge>
-        </Button>
-        <Popper open={openMenu} anchorEl={anchorRefMenu.current} role={undefined} transition disablePortal>
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            <IconButton color="inherit">
+              <Badge badgeContent={4} >
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+
+            <Button
+              ref={anchorRefMenu}
+              aria-controls={openMenu ? 'menu-list-grow' : undefined}
+              aria-haspopup="true"
+              onClick={handleToggleMenu}
             >
-              <Paper>
-                <ClickAwayListener onClickAway={handleCloseMenu}>
-                  <MenuList autoFocusItem={openMenu} id="menu-list-grow" onKeyDown={handleListKeyDownMenu}>
-                    <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
-                    <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
-                    <MenuItem onClick={handleCloseMenu}>Logout</MenuItem>
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
-      </div>
-      <div className={classes.sectionMobile}>
+              <StyledBadge
+                overlap="circular"
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                variant="dot"
+              ><Chip
+                  avatar={<Avatar size="medium" alt="Remy Sharp" src="https://v4.mui.com/static/images/avatar/1.jpg" className={classes.large} />}
+                  label="Clickable"
+                  onClick={handleClickAvata}
+                  variant="outlined"
+                />
+              </StyledBadge>
+            </Button>
+            <Popper open={openMenu} anchorEl={anchorRefMenu.current} role={undefined} transition disablePortal>
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleCloseMenu}>
+                      <MenuList autoFocusItem={openMenu} id="menu-list-grow" onKeyDown={handleListKeyDownMenu}>
+                        <MenuItem onClick={handleCloseMenu}>Profile</MenuItem>
+                        <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
+                        <MenuItem onClick={handleCloseMenu}>Logout</MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
+          </div>
+          <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
@@ -372,7 +372,7 @@ export default function YearEndSale() {
         </Toolbar>
       </AppBar>
       <Drawer
-       color="inherit"
+        color="inherit"
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -386,16 +386,84 @@ export default function YearEndSale() {
         }}
       >
         <div className={classes.toolbar}>
-          <img src={require("./logo2.png").default} className={classes.appLogo}  alt="logo" />
-         <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon style={{color:"#FFF"}} />
+          <img src={require("./logo2.png").default} className={classes.appLogo} alt="logo" />
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon style={{ color: "#FFF" }} />
           </IconButton>
         </div>
-        <Divider />
-        <List>{mainListItems}</List>
+
+        <div>
+          <Link href={'/'} >
+            <ListItemIcon >
+              <DashboardIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </Link>
+          <Link href={'/orders'} >
+            <ListItemIcon >
+              <DashboardIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Orders" />
+          </Link>
+          <Link href={'/customers'} >
+            <ListItemIcon >
+              <DashboardIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Customers" />
+          </Link>
+          <ListItem button onClick={() => usenavigate.push('/')}>
+            <ListItemIcon >
+              <DashboardIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/orders')}>
+            <ListItemIcon >
+              <ShoppingCartIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Orders" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/customers')}>
+            <ListItemIcon >
+              <PeopleIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Customers" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/reports')}>
+            <ListItemIcon >
+              <BarChartIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Reports" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/integrations')}>
+            <ListItemIcon >
+              <LayersIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Integrations" />
+          </ListItem>
+        </div>
         <Divider />
         <List>
-        {secondaryListItems}
+          <div>
+            <ListItem button onClick={() => usenavigate.push('/currentmonth')}>
+              <ListItemIcon >
+                <AssignmentIcon style={{ color: "#FFF" }} />
+              </ListItemIcon>
+              <ListItemText primary="Current month" />
+            </ListItem>
+            <ListItem button onClick={() => usenavigate.push('/lastquarter')}>
+              <ListItemIcon >
+                <AssignmentIcon style={{ color: "#FFF" }} />
+              </ListItemIcon>
+              <ListItemText primary="Last quarter" />
+            </ListItem>
+            <ListItem button onClick={() => usenavigate.push('/yearendsale')}>
+              <ListItemIcon >
+                <AssignmentIcon style={{ color: "#FFF" }} />
+              </ListItemIcon>
+              <ListItemText primary="Year-end sale" />
+            </ListItem>
+          </div>
         </List>
       </Drawer>
 
@@ -498,7 +566,7 @@ export default function YearEndSale() {
             </Grid>
           </Grid>
         </Container>
-        
+
       </Container>
     </div>
   );

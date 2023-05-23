@@ -37,7 +37,7 @@ import Chip from '@material-ui/core/Chip';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { Link } from '@material-ui/core';
+import { Link, StylesProvider } from '@material-ui/core';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -50,11 +50,14 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import { useHistory } from "react-router-dom";
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import SideBarMenu from './SideBarMenu';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+//import SideBarMenu from './SideBarMenu';
+import { BrowserRouter, Route, Switch, Router } from "react-router-dom";
 import LastQuarter from './LastQuarter';
 import CurrentMonth from './CurrentMonth';
 import Customers from './Customers';
+import Integrations from './Integrations';
+import YearEndSale from './YearEndSale';
+import Reports from './Reports';
 const primary = blueGrey[500];
 
 const drawerWidth = 240;
@@ -95,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appLogo: {
     width: "calc(100% - 30%)",
-},
+  },
   cardLayout: {
     display: 'flex',
     '& > *': {
@@ -122,10 +125,10 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: 36,
-   
+
   },
-  white:{
-    color:"#FFF !important"
+  white: {
+    color: "#FFF !important"
   },
   hide: {
     display: 'none',
@@ -135,20 +138,20 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     whiteSpace: 'nowrap',
     background: "#37474f",
-    color:"#FFF",
+    color: "#FFF",
   },
   drawerOpen: {
-    width: drawerWidth,    
+    width: drawerWidth,
     background: "#37474f",
-    color:"#FFF",
+    color: "#FFF",
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  drawerClose: {   
+  drawerClose: {
     background: "#37474f",
-    color:"#FFF",
+    color: "#FFF",
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -243,7 +246,7 @@ export default function Dashboard() {
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
 
-let usenavigate=useHistory();
+  let usenavigate = useHistory();
 
   const handleMobileMenuOpenOwn = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -257,7 +260,7 @@ let usenavigate=useHistory();
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  
+
   const [openMenu, setOpenMenu] = React.useState(false);
   const anchorRefMenu = React.useRef(null);
 
@@ -289,11 +292,13 @@ let usenavigate=useHistory();
 
     prevOpen.current = openMenu;
   }, [openMenu]);
-  
+
   const handleClickAvata = () => {
     console.info('You clicked the Chip.');
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  let getusername = sessionStorage.getItem("username")
+  console.log("getusername====", getusername)
   return (
     <div className={classes.root}>
 
@@ -314,7 +319,7 @@ let usenavigate=useHistory();
               [classes.hide]: open,
             })}
           >
-            <MenuIcon className={classes.white}/>
+            <MenuIcon className={classes.white} />
           </IconButton>
           <Typography variant="h6" noWrap>
             Dashboard
@@ -334,53 +339,54 @@ let usenavigate=useHistory();
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          
-        <Button
-          ref={anchorRefMenu}
-          aria-controls={openMenu ? 'menu-list-grow' : undefined}
-          aria-haspopup="true"
-          onClick={handleToggleMenu}
-        >
-          <StyledBadge
-            overlap="circular"
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            variant="dot"
-          ><Chip
-          avatar={<Avatar size="medium" alt="Remy Sharp" src="https://v4.mui.com/static/images/avatar/1.jpg" className={classes.large} />}
-          label="Clickable"
-          onClick={handleClickAvata}
-          variant="outlined"
-        />
-          </StyledBadge>
-        </Button>
-        <Popper open={openMenu} anchorEl={anchorRefMenu.current} role={undefined} transition disablePortal>
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            <IconButton color="inherit">
+              <Badge badgeContent={4} >
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+
+            <Button
+              ref={anchorRefMenu}
+              aria-controls={openMenu ? 'menu-list-grow' : undefined}
+              aria-haspopup="true"
+              onClick={handleToggleMenu}
             >
-              <Paper>
-                <ClickAwayListener onClickAway={handleCloseMenu}>
-                  <MenuList autoFocusItem={openMenu} id="menu-list-grow" onKeyDown={handleListKeyDownMenu}>
-                    <MenuItem onClick={handleCloseMenu}><Link to="./Profile">Profile</Link></MenuItem>
-                    <MenuItem onClick={handleCloseMenu}><Link to="./MyAccount">My account</Link></MenuItem>
-                    <MenuItem onClick={handleCloseMenu}><Link to="./Logout">Logout</Link></MenuItem>
-                  </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
-      </div>
-      <div className={classes.sectionMobile}>
+              <StyledBadge
+                overlap="circular"
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                variant="dot"
+              ><Chip
+                  avatar={<Avatar size="medium" alt="Remy Sharp" src="https://v4.mui.com/static/images/avatar/1.jpg" className={classes.large} />}
+                  label={getusername}
+                  onClick={handleClickAvata}
+                  variant="outlined"
+                  color="secondary"
+                />
+              </StyledBadge>
+            </Button>
+            <Popper open={openMenu} anchorEl={anchorRefMenu.current} role={undefined} transition disablePortal>
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleCloseMenu}>
+                      <MenuList autoFocusItem={openMenu} id="menu-list-grow" onKeyDown={handleListKeyDownMenu}>
+                        <MenuItem onClick={handleCloseMenu}><Link to="./Profile">Profile</Link></MenuItem>
+                        <MenuItem onClick={handleCloseMenu}><Link to="./MyAccount">My account</Link></MenuItem>
+                        <MenuItem onClick={handleCloseMenu}><Link to="/" onClick={() => usenavigate.push('/')}>Logout</Link></MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
+          </div>
+          <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
@@ -394,7 +400,7 @@ let usenavigate=useHistory();
         </Toolbar>
       </AppBar>
       <Drawer
-       color="inherit"
+        color="inherit"
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -408,84 +414,87 @@ let usenavigate=useHistory();
         }}
       >
         <div className={classes.toolbar}>
-          <img src={require("./logo2.png").default} className={classes.appLogo}  alt="logo" />
-         <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon style={{color:"#FFF"}} />
+          <img src={require("./logo2.png").default} className={classes.appLogo} alt="logo" />
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon style={{ color: "#FFF" }} />
           </IconButton>
         </div>
-      
+
         <div>
-          <Link href={'/'} >
-            <ListItemIcon >
-              <DashboardIcon style={{color:"#FFF"}}/>
-            </ListItemIcon>
-            <ListItemText primary="Dashboard"  />
+        {/* <Router history={usenavigate}>
+          <Switch>
+            <Route path="/"><Dashboard  /></Route>
+            <Route path="/dashboard/currentMonth" component={CurrentMonth} />
+            <Route path="/dashboard/customers" component={Customers} />
+            <Route path="/dashboard/integrations" component={Integrations} />
+            <Route path="/dashboard/lastQuarter" component={LastQuarter} />
+            <Route path="/dashboard/reports" component={Reports} />
+            <Route path="/dashboard/yearEndSale" component={YearEndSale} />
+            <Route path="/dashboard/orders" component={Orders} />
+          </Switch>
+        </Router> */}
+          {/* <Link href={'/'} >
+          Dashboard
           </Link>
-          <Link href={'/orders'} >
-            <ListItemIcon >
-              <DashboardIcon style={{color:"#FFF"}}/>
-            </ListItemIcon>
-            <ListItemText primary="Orders"  />
+          <Link href={'/dashboard/orders'} >
+          Orders
           </Link>
-          <Link href={'/customers'} >
+          <Link href={'/dashboard/customers'} >
+          Customers
+          </Link> */}
+          <ListItem button onClick={() => usenavigate.push('/dashboard')}>
             <ListItemIcon >
-              <DashboardIcon style={{color:"#FFF"}}/>
+              <DashboardIcon style={{ color: "#FFF" }} />
             </ListItemIcon>
-            <ListItemText primary="Customers"  />
-          </Link>
-    <ListItem button onClick={() => usenavigate.push('/')}>
-      <ListItemIcon >
-        <DashboardIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Dashboard"  />
-    </ListItem>
-    <ListItem button onClick={() => usenavigate.push('/orders')}>
-      <ListItemIcon >
-        <ShoppingCartIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItem>
-    <ListItem button onClick={() => usenavigate.push('/customers')}>
-      <ListItemIcon >
-        <PeopleIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItem>
-    <ListItem button  onClick={() => usenavigate.push('/reports')}>
-      <ListItemIcon >
-        <BarChartIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItem>
-    <ListItem button  onClick={() => usenavigate.push('/integrations')}>
-      <ListItemIcon >
-        <LayersIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItem>
-  </div>
+            <ListItemText primary="Dashboard" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/dashboard/orders')}>
+            <ListItemIcon >
+              <ShoppingCartIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Orders" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/dashboard/customers')}>
+            <ListItemIcon >
+              <PeopleIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Customers" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/dashboard/reports')}>
+            <ListItemIcon >
+              <BarChartIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Reports" />
+          </ListItem>
+          <ListItem button onClick={() => usenavigate.push('/dashboard/integrations')}>
+            <ListItemIcon >
+              <LayersIcon style={{ color: "#FFF" }} />
+            </ListItemIcon>
+            <ListItemText primary="Integrations" />
+          </ListItem>
+        </div>
         <Divider />
         <List>
-        <div>
-    <ListItem button onClick={() => usenavigate.push('/currentmonth')}>
-      <ListItemIcon >
-        <AssignmentIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    <ListItem button onClick={() => usenavigate.push('/lastquarter')}>
-      <ListItemIcon >
-        <AssignmentIcon style={{color:"#FFF"}} />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button onClick={() => usenavigate.push('/yearendsale')}>
-      <ListItemIcon >
-        <AssignmentIcon style={{color:"#FFF"}}/>
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
-  </div>
+          <div>
+            <ListItem button onClick={() => usenavigate.push('/dashboard/currentmonth')}>
+              <ListItemIcon >
+                <AssignmentIcon style={{ color: "#FFF" }} />
+              </ListItemIcon>
+              <ListItemText primary="Current month" />
+            </ListItem>
+            <ListItem button onClick={() => usenavigate.push('/dashboard/lastquarter')}>
+              <ListItemIcon >
+                <AssignmentIcon style={{ color: "#FFF" }} />
+              </ListItemIcon>
+              <ListItemText primary="Last quarter" />
+            </ListItem>
+            <ListItem button onClick={() => usenavigate.push('/dashboard/yearendsale')}>
+              <ListItemIcon >
+                <AssignmentIcon style={{ color: "#FFF" }} />
+              </ListItemIcon>
+              <ListItemText primary="Year-end sale" />
+            </ListItem>
+          </div>
         </List>
       </Drawer>
 
@@ -588,7 +597,7 @@ let usenavigate=useHistory();
             </Grid>
           </Grid>
         </Container>
-        
+
       </Container>
     </div>
   );
