@@ -15,7 +15,7 @@ import DrawerMenu from './DrawerMenu';
 import {useStyles} from "./DrawerMenu"
 
 
-export default function Customers() {
+export default function OrdersPage() {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (
@@ -98,6 +98,16 @@ export default function Customers() {
         </div>
         <Container maxWidth="xxl" className={classes.content}>
           <Grid container spacing={3}>
+            <Grid item xs={12} md={7} lg={9}>
+              <Paper className={fixedHeightPaper}>
+                <Chart />
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={5} lg={3}>
+              <Paper className={fixedHeightPaper}>
+                <ChartTwo />
+              </Paper>
+            </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Orders />

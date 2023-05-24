@@ -1,5 +1,5 @@
 export const ApiConstants = {
-  baseUrl: "http://localhost:5052/",
+  baseUrl: "https://localhost:7007/",
   defaultHeader: {
     "Content-Type": "application/json",
   },

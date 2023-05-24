@@ -80,6 +80,9 @@ function EnhancedTableHead(props) {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
+  // useEffect(() => {
+  //   fetch("https://localhost:7007/api/Users")
+  // })
 
   return (
     <TableHead>

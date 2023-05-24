@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -17,132 +17,66 @@ import styles from "./login/loginStyles";
 import { Alert, AlertTitle } from '@material-ui/lab';
 
 
-
-
-export default function SignIn({ onSignIn }) {
+export default function SignIn() {
   const classes = styles();
   const [username, usernameupdate] = useState('');
-  const [usernameget, usernameupdateget] = useState('');
-  const [passwordget, passwordupdateget] = useState('');
-  const [usernamegetrole, usernameupdategetrole] = useState('');
   const [password, passwordupdate] = useState('');
   const [messeses, messesesupdate] = useState('');
-  //const [role, roleupdate] = useState(usernamegetrole);
+  const [printMessesesupdated, setPrintMessesesupdated] = useState("");
+  const usenavigate = useHistory();
 
-    const usenavigate=useHistory();
-
-
-    const validate = () => {
-      let result = true;
-      if (username === '' || username === null) {
-          result = false;
-          toast.warning('Please Enter Username');
+ 
+  const proceedLoginusingAPI = (e) => {
+    e.preventDefault();
+    let inputobj = {
+      "email": username,
+      "password": password
+    };
+    fetch("https://localhost:7007/api/Users/Authenticate", {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(inputobj)
+    }).then((res) => {
+      
+      
+      if (res.status === 200) {
+       
+        toast.success('Success');
+        messesesupdate("success")
+        usenavigate.push('/dashboard')
+      } else {
+        messesesupdate("error")
       }
-      if (password === '' || password === null) {
-          result = false;
-          toast.warning('Please Enter Password');
-      }
-      return result;
+      return res.json();
+    }).then((resp) => {
+      sessionStorage.setItem('username', username);
+      sessionStorage.setItem('jwttoken', resp.jwtToken);
+      sessionStorage.setItem('statusCode', resp.message);
+      setPrintMessesesupdated(resp.message)
+    }).catch((err) => {
+      messesesupdate("error")
+      toast.error('Login Failed due to :' + err.message);
+      usenavigate.push('/auth/signin')
+    });
   }
-  // useEffect(() => {
-  //   if (validate()) {
-  //     ///implentation
-  //     // console.log('proceed');
-  //     fetch("https://localhost:7007/api/Users/"+ username).then((res) => {
-  //         return res.json();
-  //     }).then((resp) => {
-  //         console.log(resp.userName)
-  //         usernameupdateget(resp.userName)
-  //         passwordupdateget(resp.password)
-  //         usernameupdategetrole(resp.role)
-          
-  //         roleupdate
-  //         if (Object.keys(resp).length === 0) {
-  //             toast.error('Please Enter valid username');
-  //         } else {
-  //             if (resp.password === password) {
-  //                 toast.success('Success');
-  //                 // onSignIn = true;
-  //                 // sessionStorage.setItem('username',username);
-  //                 // sessionStorage.setItem('userrole',resp.role);
-  //                 if(toast.success('Success')){
-  //                   usenavigate.push('/dashboard')
-  //                 }
-                  
-  //             }else{
-  //                 toast.error('Please Enter valid credentials');
-  //             }
-  //         }
-  //     }).catch((err) => {
-  //         toast.error('Login Failed due to :' + err.message);
-  //     });
-  // }
-  // }, [username])
-
-    const ProceedLoginusingAPI = (e) => {
-        e.preventDefault();
-        if (validate()) {
-            ///implentation
-            // console.log('proceed');
-            let inputobj={
-              "username": username ,
-              "password": password,
-              "role":"Admin" 
-          };
-            fetch("https://localhost:7007/api/Users/Authenticate",{
-                method:'POST',
-                headers:{'content-type':'application/json'},
-                body:JSON.stringify(inputobj)
-            }).then((res) => {
-                return res.json();
-            }).then((resp) => {
-                console.log("resp=======", resp)
-                if (Object.keys(resp).length === 0) {
-                    toast.error('Login failed, invalid credentials');
-                }else{
-                     toast.success('Success');
-                     sessionStorage.setItem('username',username);
-                     sessionStorage.setItem('jwttoken', resp.jwtToken);
-                     let getToken = sessionStorage.getItem("jwttoken")
-                     
-                     console.log("toast======",resp)
-                     console.log("resp.status======",resp.status)
-                    if(resp.status===undefined){ 
-                      usenavigate.push('/dashboard')
-                      messesesupdate("success")
-                        //window.alert("Success");
-                    }else{
-                        //window.alert("Login failed, invalid credentials");
-                      messesesupdate("error")
-
-                      usenavigate.push('/auth/signin')
-                    }
-                }
-                
-            }).catch((err) => {
-                toast.error('Login Failed due to :' + err.message);
-            });
-        }
-    }
-    
 
   return (<div className={classes.container}>
-    <Container maxWidth="xs" style={{alignItems: "stretch", 
-     maxWidth: "50% !important", margin: "0px !important"}}>
-      <Alert severity={messeses}>
-  <AlertTitle>{messeses}</AlertTitle>
-  {messeses=== "error" ? "Login failed, invalid credentials" : messeses=== "success" ? "Success" : ""} 
-</Alert>
+    <Container  maxWidth="xxl" style={{
+      alignItems: "stretch", margin: "0px !important"
+    }}>
+      <Alert severity={messeses} style={{ marginTop: "20px" }}>
+        <AlertTitle>{messeses}</AlertTitle>
+        {messeses === "error" ? printMessesesupdated : messeses === "success" ? "Success" : ""}
+      </Alert>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
-          
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in  
+          Sign in
         </Typography>
         <form
-         onSubmit={ProceedLoginusingAPI}
+          onSubmit={proceedLoginusingAPI}
           className={classes.form}
           validate
         >
@@ -157,7 +91,7 @@ export default function SignIn({ onSignIn }) {
             name="username"
             autoComplete="username"
             autoFocus
-            value={username} 
+            value={username}
             onChange={e => usernameupdate(e.target.value)}
           />
           <TextField
@@ -171,7 +105,7 @@ export default function SignIn({ onSignIn }) {
             type="password"
             id="password"
             autoComplete="current-password"
-            value={password} 
+            value={password}
             onChange={e => passwordupdate(e.target.value)}
           />
           <FormControlLabel
@@ -184,7 +118,7 @@ export default function SignIn({ onSignIn }) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick={onSignIn}
+          // onClick={onSignIn}
           >
             Sign In
           </Button>
@@ -193,16 +127,16 @@ export default function SignIn({ onSignIn }) {
               <Link to="/auth/signup">{"Don't have an account? Sign Up"}</Link>
             </Grid>
           </Grid>
-          
         </form>
       </div>
-      <div className={classes.leftside}></div>    
+      <div className={classes.leftside}></div>
     </Container>
-    <Container  className={classes.layoutContainer} style={{alignItems: "stretch", 
-     maxWidth: "50% !important", margin: "0px !important"}}>
-    <div className={classes.layout}>
-      <Layout />
-    </div>
-  </Container></div>
+    <Container className={classes.layoutContainer} style={{
+      alignItems: "stretch", margin: "0px !important"
+    }}>
+      <div className={classes.layout}>
+        <Layout />
+      </div>
+    </Container></div>
   );
 }

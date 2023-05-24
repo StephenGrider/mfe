@@ -1,6 +1,9 @@
 import { makeStyles } from "@material-ui/core";
 
 const loginStyles = makeStyles((theme) => ({
+  root:{
+    width:"auto !important"
+      },
   rootss:{
 display:"none"
   },
@@ -9,6 +12,9 @@ display:"none"
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    maxWidth:"400px",
+    justifyContent: "center",
+    margin: "60px auto"
   },
   avatar: {
     margin: theme.spacing(1),
@@ -31,10 +37,13 @@ display:"none"
     //height: "100vh",
     "@media (max-width: 992px)": {
       display: "block",
+      layoutContainer: {
+        width: "100% !important",
+      }
     },
   },
   layoutContainer: {
-    maxWidth: "50% !important",
+    width: "50%",
     marginRight: "0 !important",
     
    // height: "100vh",

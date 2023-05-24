@@ -82,8 +82,8 @@ export const handlesubmit = async (
       email: username,
       password: password,
       phoneNumber: Number(phoneNo),
-      dateOfBirth: dateOfBirth,
-      // dateOfBirth: "2023-05-23T10:26:17.545Z",
+      //dateOfBirth: dateOfBirth,
+      dateOfBirth: "2023-05-23T10:26:17.545Z",
     };
 
     createUser(user)

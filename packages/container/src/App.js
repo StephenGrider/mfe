@@ -21,29 +21,27 @@ const generateClassName = createGenerateClassName({
 const history = createBrowserHistory();
 
 export default () => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  //const [isSignedIn, setIsSignedIn] = useState(false);
 
-  useEffect(() => {
-    if (isSignedIn) {
-      history.push('/dashboard');
-    }
-  }, [isSignedIn]);
+  // useEffect(() => {
+  //   if (isSignedIn) {
+  //     history.push('/dashboard');
+  //   }
+  // }, [isSignedIn]);
 
   return (
     <Router history={history}>
       <StylesProvider generateClassName={generateClassName}>
         <div>
           <Header
-            onSignOut={() => setIsSignedIn(false)}
-            isSignedIn={isSignedIn}
           />
           
           <Suspense fallback={<Progress />}>
             <Switch>
               <Route path="/auth">
-                <AuthLazy onSignIn={() => setIsSignedIn(true)} />
+                <AuthLazy />
               </Route>
-              <Route path="/dashboard" >                
+              <Route index path="/dashboard" >                
                 <DashboardLazy />
               </Route>
               <Route path="/" component={MarketingLazy} />
