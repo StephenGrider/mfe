@@ -23,11 +23,14 @@ import {
 export default function Profile(props) {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const url = "https://localhost:7007/api/Users/5:int";
+  const url = "https://localhost:7007/api/Users/"+sessionStorage.getItem("username");
   const [data, setData] = useState([]);
 
   const fetchInfo = () => {
-    return fetch(url)
+    return fetch(url,{
+      headers: { "Authorization": 'Bearer '+sessionStorage.getItem("jwttoken")
+    }
+    })
       .then((res) => res.json())
       .then((d) => setData(d))
   }
@@ -111,7 +114,7 @@ export default function Profile(props) {
               </form>
             </Grid>
             <Grid item xs={12} md={6} lg={6} container className={classes.paper}>
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} style={{minHeight:"350px"}}>
           {Array(data) !== null && Array(data).map((types) => (<Grid item container direction="column" align="start" spacing={1} key={types.id}>
             <Typography gutterBottom variant="h6">
               {types.firstName + types.lastName}
