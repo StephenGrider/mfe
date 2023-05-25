@@ -29,13 +29,13 @@ export default () => {
   //   }
   // }, [isSignedIn]);
 
+  //console.log("3333333333",Number(sessionStorage.getItem("statusCode")))
+
   return (
     <Router history={history}>
       <StylesProvider generateClassName={generateClassName}>
         <div>
-          <Header
-          />
-          
+         <Header />           
           <Suspense fallback={<Progress />}>
             <Switch>
               <Route path="/auth">

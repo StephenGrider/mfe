@@ -4,19 +4,24 @@ import * as Yup from "yup";
 const loginForm = (props) => {
   const formik = useFormik({
     initialValues: {
-      email: "",
+      username: "",
       password: "",
-      submit: null,
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Must be a valid email")
+      username: Yup.string()
+        .required("Username is required")
         .max(255)
-        .required("Email is required"),
-      password: Yup.string().max(255).required("Password is required"),
+        .email("Must be a valid email"),
+      password: Yup.string()
+        .required("Password is required")
+        .max(255)
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}/,
+          "Minimum eight characters, at least one upper case, one lower case, one number and one special character."
+        ),
     }),
-    onSubmit: async (values, helpers) => {
-      props.submit(values, helpers);
+    onSubmit: async (values) => {
+      props.submit(values);
     },
   });
   return formik;

@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MaterialLink from '@material-ui/core/Link';
-import { Link } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -92,6 +91,7 @@ export default function Album() {
               variant="h2"
               align="center"
               gutterBottom
+              to={"/"}
             >
               {/* Welcome To <br/>  */}
               <img src={require("./logo.svg").default} alt="logo" style={{width:"300px"}}  />
@@ -102,25 +102,23 @@ export default function Album() {
               align="center"
               paragraph
             >
-              Something short and leading about the collection below—its
-              contents, the creator, etc. Make it short and sweet, but not too
-              short so folks don&apos;t simply skip over it entirely.
+              Kyanite360 - Digital platform solutions developer. We develop and deploy technology enabled systems to leverage physical assets, investments, products, services and capabilities with data and algorithms.
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                  <Link to="/pricing">
+                  <MaterialLink href="https://calendly.com/kyanite360" target="_blank">
                     <Button variant="contained" color="primary">
-                      Pricing
+                    Book a call
                     </Button>
-                  </Link>
+                  </MaterialLink>
                 </Grid>
                 <Grid item>
-                  <Link to="/pricing">
+                  <MaterialLink href="/contact">
                     <Button variant="outlined" color="primary">
-                      Pricing
+                    Contact us
                     </Button>
-                  </Link>
+                  </MaterialLink>
                 </Grid>
               </Grid>
             </div>

@@ -2,7 +2,10 @@ import { makeStyles } from "@material-ui/core";
 
 const loginStyles = makeStyles((theme) => ({
   root:{
-    width:"auto !important"
+    width:"50% !important",
+    "@media (min-width: 992px)": {
+      width: "auto !important",
+      },
       },
   rootss:{
 display:"none"
@@ -31,27 +34,48 @@ display:"none"
     display: "flex",
     // position: "fixed",
     width: "100%",
+    "@media (min-width: 992px)": {
     height: "100vh",
+    },
     
     //alignItems: "center",
     //height: "100vh",
     "@media (max-width: 992px)": {
       display: "block",
-      layoutContainer: {
-        width: "100% !important",
-      }
+      
+      
+    },
+  },
+  signinForm:{
+display:"flex",
+position:"relative",
+"@media (min-width: 992px)": {
+height:" 100vh",
+},
+alignContent: "flex-end",
+justifyContent: "flex-end",
+alignItems: "center"
+  },
+  layoutContainers:{
+    "@media (min-width: 992px)": {
+      width: "50% !important",
+      margin: "0px !important",
+      maxWidth: "50% !important",
     },
   },
   layoutContainer: {
-    width: "50%",
     marginRight: "0 !important",
-    
+    "@media (min-width: 992px)": {
+      width: "50% !important",
+      margin: "0px !important",
+      maxWidth: "50% !important",
+    },
    // height: "100vh",
     color: "white",
     background:
       "radial-gradient(50% 50% at 50% 50%, rgb(18, 38, 71) 0%, rgb(9, 14, 35) 100%)",
     "@media (max-width: 992px)": {
-      maxWidth: "100%",
+      maxWidth: "100% !important",
     },
   },
   layout: {

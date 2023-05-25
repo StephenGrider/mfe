@@ -12,19 +12,24 @@ import Chart from './Chart';
 import ChartTwo from './ChartTwo';
 import Orders from './Orders';
 import DrawerMenu from './DrawerMenu';
-import {useStyles} from "./DrawerMenu"
+import {useStyles} from "./Styles"
+import GridContainer from "./chartList/components/Grid/GridContainer.js";
+import GridItem from "./chartList/components/Grid/GridItem.js";
+import { Card, CardBody, CardFooter, CardHeader, CardIcon } from './chartList/components/Card';
+import Timeline from "@material-ui/icons/Timeline";
 
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  
   return (
     <div className={classes.root}>
-     <DrawerMenu />
+     <DrawerMenu setData={props}/>
       <Container maxWidth="xxl" className={classes.content}>
         <div className={classes.appBarSpacer} />
         <div className={classes.cardLayout}>
-          <Paper variant="outlined">
+          <Paper variant="outlined" >
             <span style={{ fontSize: "15px", fontWeight: '300' }}>  BUDGET<br />
               <span style={{ fontSize: "35px", fontWeight: 'bold' }}>$24k</span>
               <span style={{
@@ -98,20 +103,105 @@ export default function Dashboard() {
         </div>
         <Container maxWidth="xxl" className={classes.content}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={7} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
+            <Grid item xs={12} md={12} lg={9}>
+                <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="rose" icon>
+              <CardIcon color="rose">
+                <Timeline />
+              </CardIcon>
+              <h4 className={classes.cardIconTitle}>
+                Multiple Bars Chart <small>- Bar Chart</small>
+              </h4>
+            </CardHeader>
+            <CardBody style={{height:"354px", width:"100%"}}>
+              {/* <ChartistGraph
+                data={multipleBarsChart.data}
+                type="Bar"
+                options={multipleBarsChart.options}
+                listener={multipleBarsChart.animation}
+              /> */}
+              <Chart />
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
             </Grid>
             <Grid item xs={12} md={5} lg={3}>
-              <Paper className={fixedHeightPaper}>
+              {/* <Paper className={fixedHeightPaper}>
                 <ChartTwo />
-              </Paper>
+              </Paper> */}
+              <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="rose" icon>
+              <CardIcon color="rose">
+                <Timeline />
+              </CardIcon>
+              <h4 className={classes.cardIconTitle}>
+                Multiple Bars Chart <small>- Bar Chart</small>
+              </h4>
+            </CardHeader>
+            <CardBody style={{height:"238px", width:"100%"}}>
+            <ChartTwo />
+            
+            </CardBody>
+            <CardFooter>
+            
+    <div
+        style={{
+          display: "flex",
+          flexDirection: 'row',
+          flexBasis: "100%",
+          textAlign:"center"
+        }}
+      >
+        <span style={{ flexBasis: "33%" }}>
+          <h3>Desktop</h3>
+          <h5>63%</h5>
+        </span>
+        <span style={{ flexBasis: "33%" }}>
+          <h3>Tablet</h3>
+          <h5>15%</h5>
+        </span>
+        <span style={{ flexBasis: "33%" }}>
+          <h3>Phone</h3>
+          <h5>22%</h5>
+        </span>
+      </div>
+            </CardFooter>
+          </Card>
+        </GridItem>
+      </GridContainer>
             </Grid>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="rose" icon>
+              <CardIcon color="rose">
+              <PeopleAltSharpIcon style={{ fontSize: "25px", color: "#FFF" }} />
+              </CardIcon>
+              <h4 className={classes.cardIconTitle}>
+                All User List <small>- List area</small>
+              </h4>
+            </CardHeader>
+            <CardBody style={{width:"100%"}}>
+              {/* <ChartistGraph
+                data={multipleBarsChart.data}
+                type="Bar"
+                options={multipleBarsChart.options}
+                listener={multipleBarsChart.animation}
+              /> */}
+              <Orders />
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
+              {/* <Paper className={classes.paper}>
                 <Orders />
-              </Paper>
+              </Paper> */}
             </Grid>
           </Grid>
         </Container>

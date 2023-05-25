@@ -6,9 +6,9 @@ const signUpStyles = makeStyles((theme) => ({
       textDecoration: "none",
     },
   },
-  // rootss: {
-  //   display: "none",
-  // },
+  rootss: {
+    display: "none",
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",

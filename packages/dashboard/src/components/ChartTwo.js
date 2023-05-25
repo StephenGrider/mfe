@@ -16,7 +16,6 @@ export default function ChartTwo() {
 
   return (
     <React.Fragment>
-      <Title>Today</Title>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart width={800} height={600}>
           <Pie
@@ -35,26 +34,7 @@ export default function ChartTwo() {
           </Pie>
         </PieChart>
       </ResponsiveContainer>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: 'row',
-          flexBasis: "25%"
-        }}
-      >
-        <span style={{ flexBasis: "33%" }}>
-          <h3>Desktop</h3>
-          <h5>63%</h5>
-        </span>
-        <span style={{ flexBasis: "33%" }}>
-          <h3>Tablet</h3>
-          <h5>15%</h5>
-        </span>
-        <span style={{ flexBasis: "33%" }}>
-          <h3>Phone</h3>
-          <h5>22%</h5>
-        </span>
-      </div>
+      
     </React.Fragment>
   );
 }

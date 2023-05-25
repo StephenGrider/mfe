@@ -10,9 +10,11 @@
     "@material-ui/icons": "^4.9.1",
     "file-loader": "^6.2.0",
     "react": "^17.0.1",
+    "react-chartist": "^0.14.4",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
-    "recharts": "^2.6.2"
+    "recharts": "^2.6.2",
+    "recoil": "^0.7.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",

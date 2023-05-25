@@ -12,7 +12,7 @@ import Chart from './Chart';
 import ChartTwo from './ChartTwo';
 import Orders from './Orders';
 import DrawerMenu from './DrawerMenu';
-import {useStyles} from "./DrawerMenu"
+import {useStyles} from "./Styles"
 
 
 export default function OrdersPage() {

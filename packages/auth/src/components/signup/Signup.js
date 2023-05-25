@@ -1,56 +1,39 @@
 import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import { Link, useHistory } from "react-router-dom";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import { handlesubmit } from "./signUpHelper";
 import Layout from "../layout/layout";
 import signUpStyles from "./signUpStyles";
-import {
-  validateEmail,
-  validatePhone,
-  validateText,
-} from "../login/loginHelper";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link to="/">Your Website</Link> {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import signupForm from "./signupForm";
 
 export default function SignUp() {
-  // const classes = useStyles();
   const classes = signUpStyles();
-  const [username, usernamechange] = useState("");
-  const [firstname, firstnamechange] = useState("");
-  const [lastname, lastnamechange] = useState("");
-  const [password, passwordchange] = useState("");
-  const [confirmpassword, confirmpasswordchange] = useState("");
-
-  const systemDate = new Date().setHours(0, 0, 0, 0);
-  const minimumDate = new Date("01-01-1970").setHours(0, 0, 0, 0);
-  const date = new Date();
-  const month = Number(date.getMonth()) + 1;
-  const monthStr = month > 9 ? month.toString() : "0" + month.toString();
-  const dateStr = date.getFullYear() + "-" + monthStr + "-" + date.getDate();
-  const [dateOfBirth, dateOfBirthchange] = useState(dateStr);
-  const [phoneNo, phoneNochange] = useState("");
   const usenavigate = useHistory();
+  const [messageTitle, setMessageTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const capitalizeFirstLetter = (value) =>
+    value.charAt(0).toUpperCase() + value.slice(1);
+  const formik = signupForm({
+    submit: async (values) => {
+      formik.isValid &&
+        handlesubmit(values, usenavigate, setMessage, setMessageTitle);
+    },
+  });
 
   return (
     <div className={classes.container}>
       <Container component="main" maxWidth="xs">
+        <Alert severity={messageTitle} style={{ marginTop: "20px" }}>
+          <AlertTitle>{capitalizeFirstLetter(messageTitle)}</AlertTitle>
+          {message}
+        </Alert>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -59,72 +42,66 @@ export default function SignUp() {
             Sign up
           </Typography>
           <form
-            onSubmit={(e) => {
-              handlesubmit(
-                e,
-                {
-                  firstname,
-                  lastname,
-                  username,
-                  phoneNo,
-                  dateOfBirth,
-                  password,
-                  confirmpassword,
-                },
-                usenavigate
-              );
-            }}
+            onSubmit={formik.handleSubmit}
             className={classes.form}
             noValidate
           >
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
                 <TextField
-                  error={!validateText(firstname)}
-                  autoComplete="firstname"
-                  name="firstname"
+                  autoComplete="firstName"
+                  name="firstName"
                   variant="outlined"
                   required
                   fullWidth
-                  id="firstname"
-                  label="First Name"
                   autoFocus
-                  value={firstname}
-                  onChange={(e) => firstnamechange(e.target.value)}
+                  id="firstName"
+                  label="First Name"
+                  error={
+                    !!(formik.touched.firstName && formik.errors.firstName)
+                  }
+                  helperText={
+                    formik.touched.firstName && formik.errors.firstName
+                  }
+                  value={formik.values.firstName}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                  error={!validateText(lastname)}
+                  autoComplete="lastName"
+                  name="lastName"
                   variant="outlined"
                   required
                   fullWidth
-                  id="lastname"
+                  id="lastName"
                   label="Last Name"
-                  name="lastname"
-                  autoComplete="lastName"
-                  value={lastname}
-                  onChange={(e) => lastnamechange(e.target.value)}
+                  error={!!(formik.touched.lastName && formik.errors.lastName)}
+                  helperText={formik.touched.lastName && formik.errors.lastName}
+                  value={formik.values.lastName}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
                 <TextField
-                  error={!validateEmail(username)}
-                  autoComplete="username"
-                  name="username"
+                  autoComplete="userName"
+                  name="userName"
                   variant="outlined"
                   required
                   fullWidth
-                  id="username"
-                  label="Email Address"
-                  autoFocus
-                  value={username}
-                  onChange={(e) => usernamechange(e.target.value)}
+                  id="userName"
+                  label="Username"
+                  error={!!(formik.touched.userName && formik.errors.userName)}
+                  helperText={formik.touched.userName && formik.errors.userName}
+                  value={formik.values.userName}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <TextField
-                  error={!validatePhone(phoneNo)}
                   variant="outlined"
                   required
                   fullWidth
@@ -132,27 +109,34 @@ export default function SignUp() {
                   label="Phone No"
                   name="phoneNo"
                   autoComplete="phoneNo"
-                  value={phoneNo}
-                  onChange={(e) => phoneNochange(e.target.value)}
+                  error={!!(formik.touched.phoneNo && formik.errors.phoneNo)}
+                  helperText={formik.touched.phoneNo && formik.errors.phoneNo}
+                  value={formik.values.phoneNo}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <TextField
-                  error={!dateOfBirth}
                   variant="outlined"
                   fullWidth
                   id="dateOfBirth"
-                  label="Date of Birth"
                   name="dateOfBirth"
                   type="date"
                   autoComplete="dateOfBirth"
-                  value={dateOfBirth}
-                  onChange={(e) => dateOfBirthchange(e.target.value)}
+                  error={
+                    !!(formik.touched.dateOfBirth && formik.errors.dateOfBirth)
+                  }
+                  helperText={
+                    formik.touched.dateOfBirth && formik.errors.dateOfBirth
+                  }
+                  value={formik.values.dateOfBirth}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  error={!validateText(password)}
                   variant="outlined"
                   required
                   fullWidth
@@ -161,30 +145,35 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  value={password}
-                  onChange={(e) => passwordchange(e.target.value)}
+                  error={!!(formik.touched.password && formik.errors.password)}
+                  helperText={formik.touched.password && formik.errors.password}
+                  value={formik.values.password}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  error={!validateText(confirmpassword)}
                   variant="outlined"
                   required
                   fullWidth
-                  name="confirmpassword"
+                  name="confirmPassword"
                   label="Confirm Password"
                   type="password"
-                  id="confirmpassword"
-                  value={confirmpassword}
-                  onChange={(e) => confirmpasswordchange(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
+                  id="confirmPassword"
+                  error={
+                    !!(
+                      formik.touched.confirmPassword &&
+                      formik.errors.confirmPassword
+                    )
                   }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  helperText={
+                    formik.touched.confirmPassword &&
+                    formik.errors.confirmPassword
+                  }
+                  value={formik.values.confirmPassword}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                 />
               </Grid>
             </Grid>
@@ -204,9 +193,6 @@ export default function SignUp() {
             </Grid>
           </form>
         </div>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
       </Container>
       <Container
         className={classes.layoutContainer}

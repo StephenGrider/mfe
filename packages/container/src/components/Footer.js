@@ -9,7 +9,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary">
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="https://kyanite360.com/">
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   rootss: {
     display: 'flex',
     flexDirection: 'column',
+    position:"relative",
+    clear:"both"
+    
   },
   main: {
     marginTop: theme.spacing(4),
@@ -30,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     padding: theme.spacing(1, 1),
     marginTop: 'auto',
+    textAlign:"center",
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[100] : theme.palette.grey[100],
   },
@@ -42,7 +46,7 @@ export default function StickyFooter() {
     <div className={classes.rootss}>
       <footer className={classes.footer}>
         <Container maxWidth="sm">
-          <Typography variant="body1">My sticky footer can be found here.</Typography>
+          {/* <Typography variant="body1">My sticky footer can be found here.</Typography> */}
           <Copyright />
         </Container>
       </footer>
