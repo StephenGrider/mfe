@@ -13,10 +13,12 @@ import { Link, useHistory } from "react-router-dom";
 import { handlesubmit } from "./signUpHelper";
 import Layout from "../layout/layout";
 import signUpStyles from "./signUpStyles";
+import { isAfter } from "date-fns";
 import {
   validateEmail,
   validatePhone,
   validateText,
+  validateText2,
 } from "../login/loginHelper";
 
 function Copyright() {
@@ -29,25 +31,48 @@ function Copyright() {
   );
 }
 
+
 export default function SignUp() {
-  // const classes = useStyles();
   const classes = signUpStyles();
   const [username, usernamechange] = useState("");
   const [firstname, firstnamechange] = useState("");
   const [lastname, lastnamechange] = useState("");
-  const [password, passwordchange] = useState("");
-  const [confirmpassword, confirmpasswordchange] = useState("");
-
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
   const systemDate = new Date().setHours(0, 0, 0, 0);
   const minimumDate = new Date("01-01-1970").setHours(0, 0, 0, 0);
   const date = new Date();
   const month = Number(date.getMonth()) + 1;
   const monthStr = month > 9 ? month.toString() : "0" + month.toString();
   const dateStr = date.getFullYear() + "-" + monthStr + "-" + date.getDate();
-  const [dateOfBirth, dateOfBirthchange] = useState(dateStr);
-  const [phoneNo, phoneNochange] = useState("");
+  const passwordPattern =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
   const usenavigate = useHistory();
+  const [phoneNo, setPhoneNo] = useState("");
+  const [touched, setTouched] = useState(false);
+  const isInvalid = touched && (!phoneNo || !validatePhone(phoneNo));
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [dateOfBirthError, setDateOfBirthError] = useState(false);
 
+  const dateOfBirthchange = (value) => {
+    const selectedDate = new Date(value);
+    const currentDate = new Date();
+    const minDate = new Date();
+    minDate.setFullYear(currentDate.getFullYear() - 18);
+    const isDateValid = !isAfter(selectedDate, systemDate) && !isAfter(selectedDate, minDate);
+  setDateOfBirth(value);
+  setDateOfBirthError(!isDateValid);
+  };
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    const numericValue = inputValue.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+    setPhoneNo(numericValue);
+   };
+    const handleInputBlur = () => {
+      setTouched(true);
+     };
+      
   return (
     <div className={classes.container}>
       <Container component="main" maxWidth="xs">
@@ -69,10 +94,11 @@ export default function SignUp() {
                   phoneNo,
                   dateOfBirth,
                   password,
-                  confirmpassword,
+                  confirmPassword,
                 },
                 usenavigate
               );
+             
             }}
             className={classes.form}
             noValidate
@@ -80,7 +106,7 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
                 <TextField
-                  error={!validateText(firstname)}
+                error={!validateText(firstname) || (firstname.length > 0 && firstname.length > 10)}
                   autoComplete="firstname"
                   name="firstname"
                   variant="outlined"
@@ -91,11 +117,19 @@ export default function SignUp() {
                   autoFocus
                   value={firstname}
                   onChange={(e) => firstnamechange(e.target.value)}
+                  helperText=
+                  {
+                    !validateText(firstname)
+                    ? "Please enter a valid first name without digits or special characters."
+                    : firstname.length > 10
+                    ? "First name should not exceed 10 characters."
+                    : ""
+                  }
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                  error={!validateText(lastname)}
+                  error={!validateText(lastname) || (lastname.length > 0 && lastname.length > 10)}
                   variant="outlined"
                   required
                   fullWidth
@@ -105,6 +139,14 @@ export default function SignUp() {
                   autoComplete="lastName"
                   value={lastname}
                   onChange={(e) => lastnamechange(e.target.value)}
+                  helperText=
+                  {
+                    !validateText(lastname)
+                    ? "Please enter a valid last name without digits or special characters."
+                    : lastname.length > 10
+                    ? "Last name should not exceed 10 characters."
+                    : ""
+                  }
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -122,37 +164,52 @@ export default function SignUp() {
                   onChange={(e) => usernamechange(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  error={!validatePhone(phoneNo)}
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="phoneNo"
-                  label="Phone No"
-                  name="phoneNo"
-                  autoComplete="phoneNo"
-                  value={phoneNo}
-                  onChange={(e) => phoneNochange(e.target.value)}
-                />
+              <Grid item xs={12}>    
+              
+            <TextField
+              error={isInvalid}
+              variant="outlined"
+              required
+              fullWidth
+              id="phoneNo"
+              label="Phone No"
+              name="phoneNo"
+              type="text"
+              autoComplete="phoneNo"
+              value={phoneNo}
+              style={{ outlineColor: isInvalid ? 'red' : 'inherit' }}
+              onChange={handleInputChange}
+              onBlur={handleInputBlur}
+              inputProps={{
+                pattern: '[0-9]*',
+                inputMode: 'numeric',
+                maxLength: 10,
+              }}
+              helperText=
+              {
+                (isInvalid && 'Please enter a valid phone number.') ||
+                (touched && phoneNo.length !== 10 && 'Phone number should be 10 digits.')
+              }
+            />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  error={!dateOfBirth}
+                  error={dateOfBirthError}
                   variant="outlined"
                   fullWidth
                   id="dateOfBirth"
-                  label="Date of Birth"
+                  label=""
                   name="dateOfBirth"
                   type="date"
                   autoComplete="dateOfBirth"
                   value={dateOfBirth}
                   onChange={(e) => dateOfBirthchange(e.target.value)}
+                  helperText={dateOfBirthError && "Please select a valid date of birth."}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  error={!validateText(password)}
+                  error={!validateText2(password)}
                   variant="outlined"
                   required
                   fullWidth
@@ -162,12 +219,21 @@ export default function SignUp() {
                   id="password"
                   autoComplete="current-password"
                   value={password}
-                  onChange={(e) => passwordchange(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setPasswordError(!passwordPattern.test(e.target.value));
+                  }}
+                  helperText=
+                  {
+                    (passwordError && "Password should contain at least 8 characters, including uppercase and lowercase letters, numbers, and special characters.") ||
+                    (password.includes(" ") && "Password should not contain spaces.")
+                  }
                 />
+
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  error={!validateText(confirmpassword)}
+                  error={!validateText2(confirmPassword)}
                   variant="outlined"
                   required
                   fullWidth
@@ -175,13 +241,23 @@ export default function SignUp() {
                   label="Confirm Password"
                   type="password"
                   id="confirmpassword"
-                  value={confirmpassword}
-                  onChange={(e) => confirmpasswordchange(e.target.value)}
+                  value={confirmPassword}
+                  onChange={(e) => 
+                    {
+                    setConfirmPassword(e.target.value);
+                    setPasswordError(e.target.value !== password);
+                  }}
                 />
+                  {passwordError && (
+                    <Typography variant="body2" color="error">
+                      Passwords do not match or do not meet the requirements.
+                    </Typography>
+                    )}
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={
+                  control=
+                  {
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
                   label="I want to receive inspiration, marketing promotions and updates via email."
@@ -222,4 +298,5 @@ export default function SignUp() {
       </Container>
     </div>
   );
+
 }

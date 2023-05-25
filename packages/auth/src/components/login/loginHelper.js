@@ -1,13 +1,22 @@
 import { toast } from "react-toastify";
 
-export const validateText = (value) => {
-  return value && value.length > 0 && value.length < 250;
-};
+export function validateText(text) {
+  // Regular expression to match only letters and spaces
+  const regex = /^[a-zA-Z\s]*$/;
+  return regex.test(text);
+}
+export function validateText2(text2) {
+  // Check if text is empty or contains spaces
+  if (!text2 || text2.trim() === "") {
+    return false;
+  }
+  return true;
+}
+export function validatePhone(phoneNo) {
+  const phoneNoPattern = /^\d{10}$/; // Exactly 10 digits
+  return phoneNoPattern.test(phoneNo);
 
-export const validatePhone = (value) => {
-  return value && value.length === 10;
-};
-
+}    
 export const validateEmail = (value) => {
   const emailRegex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
