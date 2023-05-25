@@ -1,60 +1,73 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { ToastContainer, toast, TypeOptions } from "react-toastify";
+//import "react-toastify/dist/ReactToastify.css";
+import Layout from './layout/layout';
+import styles from "./login/loginStyles";
+import { Alert, AlertTitle } from '@material-ui/lab';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" to="/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-const useStyles = makeStyles((theme) => ({
-  '@global': {
-    a: {
-      textDecoration: 'none',
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+export default function SignIn() {
+  const classes = styles();
+  const [username, usernameupdate] = useState('');
+  const [password, passwordupdate] = useState('');
+  const [messeses, messesesupdate] = useState('');
+  const [printMessesesupdated, setPrintMessesesupdated] = useState("");
+  const usenavigate = useHistory();
 
-export default function SignIn({ onSignIn }) {
-  const classes = useStyles();
+ 
+  const proceedLoginusingAPI = (e) => {
+    e.preventDefault();
+    let inputobj = {
+      "email": username,
+      "password": password
+    };
+    fetch("https://localhost:7007/api/Users/Authenticate", {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(inputobj)
+    }).then((res) => {
+      
+      
+      if (res.status === 200) {
+       
+        toast.success('Success');
+        messesesupdate("success")
+        usenavigate.push('/dashboard')
+      } else {
+        messesesupdate("error")
+      }
+      return res.json();
+    }).then((resp) => {
+      sessionStorage.setItem('username', username);
+      sessionStorage.setItem('jwttoken', resp.jwtToken);
+      sessionStorage.setItem('statusCode', resp.message);
+      setPrintMessesesupdated(resp.message)
+    }).catch((err) => {
+      messesesupdate("error")
+      toast.error('Login Failed due to :' + err.message);
+      usenavigate.push('/auth/signin')
+    });
+  }
 
-  return (
-    <Container component="main" maxWidth="xs">
+  return (<div className={classes.container}>
+    <Container  maxWidth="xxl" style={{
+      alignItems: "stretch", margin: "0px !important"
+    }}>
+      <Alert severity={messeses} style={{ marginTop: "20px" }}>
+        <AlertTitle>{messeses}</AlertTitle>
+        {messeses === "error" ? printMessesesupdated : messeses === "success" ? "Success" : ""}
+      </Alert>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -63,22 +76,26 @@ export default function SignIn({ onSignIn }) {
           Sign in
         </Typography>
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={proceedLoginusingAPI}
           className={classes.form}
-          noValidate
+          validate
         >
           <TextField
+            error={!username}
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="User Name"
+            name="username"
+            autoComplete="username"
             autoFocus
+            value={username}
+            onChange={e => usernameupdate(e.target.value)}
           />
           <TextField
+            error={!password}
             variant="outlined"
             margin="normal"
             required
@@ -88,6 +105,8 @@ export default function SignIn({ onSignIn }) {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={e => passwordupdate(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -99,7 +118,7 @@ export default function SignIn({ onSignIn }) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={onSignIn}
+          // onClick={onSignIn}
           >
             Sign In
           </Button>
@@ -110,9 +129,14 @@ export default function SignIn({ onSignIn }) {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
+      <div className={classes.leftside}></div>
     </Container>
+    <Container className={classes.layoutContainer} style={{
+      alignItems: "stretch", margin: "0px !important"
+    }}>
+      <div className={classes.layout}>
+        <Layout />
+      </div>
+    </Container></div>
   );
 }

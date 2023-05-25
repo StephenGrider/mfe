@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -10,8 +10,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link } from 'react-router-dom';
-
+import { Link, useHistory } from 'react-router-dom';
+import { toast } from "react-toastify";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -49,7 +49,116 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp({ onSignIn }) {
   const classes = useStyles();
+  const [id, idchange] = useState("");
+  const [username, usernamechange] = useState("");
+  const [firstname, firstnamechange] = useState("");
+  const [lastname, lastnamechange] = useState("");
+  const [password, passwordchange] = useState("");
+  const [phoneNo, phoneNochange] = useState("");
+  const [email, emailchange] = useState("");
+  const usenavigate=useHistory();
+ // const navigate = useNavigate();
 
+  const IsValidate = () => {
+      let isproceed = true;
+      let errormessage = 'Please enter the value in ';
+      // if (id === null || id === '') {
+      //     isproceed = false;
+      //     errormessage += ' Username';
+      // }
+      if (username === null || username === '') {
+        isproceed = false;
+        errormessage += ' Username';
+    }
+      if (firstname === null || firstname === '') {
+          isproceed = false;
+          errormessage += ' Firstname';
+      }
+      if (lastname === null || lastname === '') {
+        isproceed = false;
+        errormessage += ' Lastname';
+    }
+      if (password === null || password === '') {
+          isproceed = false;
+          errormessage += ' Password';
+      }
+      if (email === null || email === '') {
+          isproceed = false;
+          errormessage += ' Email';
+      }
+      if (phoneNo === null || phoneNo === '') {
+        isproceed = false;
+        errormessage += 'Phone No';
+    }
+
+      if(!isproceed){
+          toast.warning(errormessage)
+      }else{
+          if(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)){
+
+          }else{
+              isproceed = false;
+              toast.warning('Please enter the valid email')
+          }
+      }
+      return isproceed;
+  }
+// const ProceedLoginusingAPI = (e) => {
+//         e.preventDefault();
+//         if (validate()) {
+//             ///implentation
+//             // console.log('proceed');
+//             let inputobj={
+//               "username": username,
+//               "password": password,
+//               "role":"Admin"
+//           };
+//             fetch("https://localhost:7007/api/Users",{
+//                 method:'POST',
+//                 headers:{'content-type':'application/json'},
+//                 body:JSON.stringify(inputobj)
+//             }).then((res) => {
+//                 return res.json();
+//             }).then((resp) => {
+//               if (Object.keys(resp).length === 0) {
+//                 toast.error('Login failed, invalid credentials');
+//             }else{
+//                  toast.success('Success');
+//                  sessionStorage.setItem('username',username);
+//                  sessionStorage.setItem('jwttoken',resp.jwtToken);
+                  // if(toast.success('Success')){
+                  //   usenavigate.push('/dashboard')
+                  // }else{
+                  //   usenavigate.push('/auth/signin')
+                  // } 
+//                  }
+//               });
+//             };
+//           };
+            
+
+  const handlesubmit = (e) => {
+          e.preventDefault();
+          let regobj = { "username": username, "password": password,"role":"Admin"};
+          if (IsValidate()) {
+          //console.log(regobj);
+          fetch("https://localhost:7007/api/Users", {
+              method: "POST",
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify(regobj)
+          }).then((res) => {
+              toast.success('Registered successfully.')
+              if(toast.success('Success')){
+                usenavigate.push('/auth/signin')
+              }else{
+                usenavigate.push('/auth/signup')
+              } 
+              //navigate('/login');
+          }).catch((err) => {
+              toast.error('Failed :' + err.message);
+          });
+      }
+  }
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
@@ -60,21 +169,35 @@ export default function SignUp({ onSignIn }) {
           Sign up
         </Typography>
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handlesubmit}
           className={classes.form}
           noValidate
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12}>
               <TextField
-                autoComplete="fname"
-                name="firstName"
+                autoComplete="username"
+                name="username"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
+                id="username"
+                label="User Name"
+                autoFocus
+                value={username} onChange={e => usernamechange(e.target.value)} 
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="firstname"
+                name="firstname"
+                variant="outlined"
+                required
+                fullWidth
+                id="firstname"
                 label="First Name"
                 autoFocus
+                value={firstname} onChange={e => firstnamechange(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -82,10 +205,11 @@ export default function SignUp({ onSignIn }) {
                 variant="outlined"
                 required
                 fullWidth
-                id="lastName"
+                id="lastname"
                 label="Last Name"
-                name="lastName"
-                autoComplete="lname"
+                name="lastname"
+                autoComplete="lastName"
+                value={lastname} onChange={e => lastnamechange(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -97,6 +221,19 @@ export default function SignUp({ onSignIn }) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email} onChange={e => emailchange(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="phoneNo"
+                label="Phone No"
+                name="phoneNo"
+                autoComplete="phoneNo"
+                value={phoneNo} onChange={e => phoneNochange(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -109,6 +246,7 @@ export default function SignUp({ onSignIn }) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password} onChange={e => passwordchange(e.target.value)} t
               />
             </Grid>
             <Grid item xs={12}>
@@ -124,7 +262,7 @@ export default function SignUp({ onSignIn }) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={onSignIn}
+            //onClick={onSignIn}
           >
             Sign Up
           </Button>

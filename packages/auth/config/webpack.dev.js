@@ -7,13 +7,11 @@ const packageJson = require('../package.json');
 const devConfig = {
   mode: 'development',
   output: {
-    publicPath: 'http://localhost:8082/',
+    publicPath: 'http://localhost:8012/',
   },
   devServer: {
-    port: 8082,
-    historyApiFallback: {
-      index: 'index.html',
-    },
+    port: 8012,
+    historyApiFallback: true,
   },
   plugins: [
     new ModuleFederationPlugin({
