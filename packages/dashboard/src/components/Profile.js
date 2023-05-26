@@ -50,6 +50,7 @@ export default function Profile(props) {
     validationSchema: Yup.object().shape({
       oldPassword: Yup.string().required('Old Password is required.')
       .matches(passwordRegExp, 'New Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character.'),
+      
       newPassword: Yup.string()
         .required('New Password is required.')
         .matches(passwordRegExp, 'New Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character.')
