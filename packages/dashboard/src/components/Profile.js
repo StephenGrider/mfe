@@ -86,7 +86,6 @@ export default function Profile(props) {
     })
       .then((res) => res.json())
       .then((response) => {
-        debugger
         // Check the response for success or error
         if (response.code===200) {
           // Password update successful
