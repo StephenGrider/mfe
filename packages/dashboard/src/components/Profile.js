@@ -115,22 +115,22 @@ export default function Profile(props) {
             </Grid>
             <Grid item xs={12} md={6} lg={6} container className={classes.paper}>
             <Paper className={classes.paper} style={{minHeight:"350px"}}>
-          {Array(data) !== null && Array(data).map((types) => (<Grid item container direction="column" align="start" spacing={1} key={types.id}>
-            <Typography gutterBottom variant="h6">
-              {types.firstName + types.lastName}
+          {Array(data) !== null && Array(data).map((types, i) => (<Grid item container direction="column" align="start" spacing={1} key={types.id}>
+            <Typography gutterBottom variant="h6" key={types.firstName+i}>
+              {types.firstName + " " + types.lastName}
             </Typography>
             
-            <Typography variant="body1" gutterBottom color="textSecondary">
+            <Typography variant="body1" gutterBottom color="textSecondary" key={types.phoneNumber+i}>
               Phone Number: {types.phoneNumber}
             </Typography>
-            <Typography variant="body1" gutterBottom color="textSecondary">
+            <Typography variant="body1" gutterBottom color="textSecondary" key={types.dateOfBirth+i}>
               Date Of Birth: {types.dateOfBirth}
             </Typography>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="body2" color="textSecondary" key={types.role+i}>
                 Role: {types.role}
               </Typography>
            
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant="body2" color="textSecondary" key={types.email+i}>
               Email: {types.email}
             </Typography>
           </Grid>

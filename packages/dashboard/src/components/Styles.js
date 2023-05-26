@@ -108,6 +108,7 @@ export const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(1),
+        flexDirection:"row"
     },
     paper: {
         padding: theme.spacing(2),

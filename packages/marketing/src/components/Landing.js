@@ -6,22 +6,17 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import MaterialLink from '@material-ui/core/Link';
+import WhyUs from './WhyUs/WhyUs';
+import Reviews from './Reviews/Reviews';
+import Team from './Team/Team';
+import Main from './Main/Main';
+import CallToAction from './CallToAction/CallToAction';
+import Teaser from './Teaser/Teaser';
+import { Box } from '@material-ui/core';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <MaterialLink component={Link} to="/" color="inherit">
-        Your Website
-      </MaterialLink>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -33,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   heroContent: {
-    //backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+    backgroundColor: "#f2f2f2",
+    padding: theme.spacing(8, 0, 0),
     // background:url("./header.jpg"),
     // backgroundAttachment:"fixed",
     // backgroundPosition:"left top"
@@ -68,14 +63,19 @@ const useStyles = makeStyles((theme) => ({
     zIndex: "-1",
     width: "100%",
     opacity: "0.7",
+  },
+  callToAction:{
+    backgroundColor: "#f2f2f2",
+    width: "100%",
+    paddingBottom: "33px"
   }
-  
 }));
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Album() {
   const classes = useStyles();
+  const theme = useTheme();
   useEffect(()=>{
     sessionStorage.clear();
         },[]);
@@ -84,48 +84,15 @@ export default function Album() {
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-          <img src={require("./header.jpg").default} alt="header"  className={classes.headerImg} />
-          <Container maxWidth="sm" style={{color: "#FFF", backgroundColor: "rgb(0 0 0 / 77%)", borderRadius: "50px", padding: "50px"}}>
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              gutterBottom
-              to={"/"}
-            >
-              {/* Welcome To <br/>  */}
-              <img src={require("./logo.svg").default} alt="logo" style={{width:"300px"}}  />
-              
-            </Typography>
-            <Typography
-              variant="h5"
-              align="center"
-              paragraph
-            >
-              Kyanite360 - Digital platform solutions developer. We develop and deploy technology enabled systems to leverage physical assets, investments, products, services and capabilities with data and algorithms.
-            </Typography>
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-                <Grid item>
-                  <MaterialLink href="https://calendly.com/kyanite360" target="_blank">
-                    <Button variant="contained" color="primary">
-                    Book a call
-                    </Button>
-                  </MaterialLink>
-                </Grid>
-                <Grid item>
-                  <MaterialLink href="/contact">
-                    <Button variant="outlined" color="primary">
-                    Contact us
-                    </Button>
-                  </MaterialLink>
-                </Grid>
-              </Grid>
-            </div>
-          </Container>
+          <WhyUs />
+         <span >
+         <svg style={{    marginBottom: "-10px"}} className="MuiBox-root css-1fcrnke" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1920 100.1"><path fill="#fff" d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"></path></svg>
+          </span> 
         </div>
+        
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
+          <Main />
           <Grid container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
@@ -156,7 +123,21 @@ export default function Album() {
               </Grid>
             ))}
           </Grid>
+         
         </Container>
+        
+        {/* <Container >
+          <Teaser />
+        </Container> */}
+        <Container >
+          <Team />
+        </Container>
+        <div className={classes.callToAction}>
+        <svg style={{    marginBottom: "-10px", transform: "rotateX(180deg)"}} className="MuiBox-root css-1fcrnke" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1920 100.1"><path fill="#fff" d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"></path></svg>
+        <Container  maxWidth="md">
+        <CallToAction />
+        </Container>
+        </div>
       </main>
       {/* Footer */}
     
