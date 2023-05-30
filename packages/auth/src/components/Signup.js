@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp({ onSignIn }) {
+export default function SignUp({ login }) {
   const classes = useStyles();
   const [id, idchange] = useState("");
   const [username, usernamechange] = useState("");

@@ -5,7 +5,7 @@ import {
   createGenerateClassName,
 } from '@material-ui/core/styles';
 import { createBrowserHistory } from 'history';
-
+import AuthContext from "../../auth/src/context/AuthContext"
 import Progress from './components/Progress';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -30,7 +30,14 @@ export default () => {
   // }, [isSignedIn]);
 
   //console.log("3333333333",Number(sessionStorage.getItem("statusCode")))
-
+  // const [isSignedIn, setIsSignedIn] = useState(false);
+  // const login = () => {
+  //   setIsSignedIn(true);
+  // };
+  
+  // const logout = () => {
+  //   setIsSignedIn(false);
+  // };
   return (
     <Router history={history}>
       <StylesProvider generateClassName={generateClassName}>
@@ -38,14 +45,18 @@ export default () => {
          <Header />           
           <Suspense fallback={<Progress />}>
             <Switch>
-              <Route path="/auth">
+            {/* <AuthContext.Provider value={{ status: isSignedIn, login: login, logout: logout }}> */}
+            <Route path="/auth">
                 <AuthLazy />
               </Route>
               <Route index path="/dashboard" >                
                 <DashboardLazy />
               </Route>
               <Route path="/" component={MarketingLazy} />
+              
+              {/* </AuthContext.Provider> */}
             </Switch>
+            
             <Footer />
           </Suspense>
           

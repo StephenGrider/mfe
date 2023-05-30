@@ -1,6 +1,13 @@
 import { toast } from "react-toastify";
 import { createUser } from "../../../services/user.service";
-
+export const yesterdaysDate = () => {
+  const date = new Date();
+  const yesterday = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1, 0, 0, 0, 0);
+  const month = yesterday.getMonth() + 1;
+  const monthStr = month > 9 ? month : "0" + month;
+  const yesterdayStr = yesterday.getFullYear() + "-" + monthStr + "-" + yesterday.getDate();
+  return yesterdayStr;
+};
 export const IsValidate = ({
   firstname,
   lastname,
@@ -67,7 +74,7 @@ export const handlesubmit = async (
     id: 0,
     firstName: values.firstName,
     lastName: values.lastName,
-    role: "A",
+    role: "Admin",
     email: values.userName,
     password: values.password,
     phoneNumber: values.phoneNo,
@@ -80,13 +87,16 @@ export const handlesubmit = async (
       if (res && res.code === 200) {
         setMessageTitle("success");
         setMessage(res.message);
+        alert(res.message)
         usenavigate.push("/auth/signin");
       } else if (res && res.code === 406) {
         setMessageTitle("error");
         setMessage(res.message);
+        alert(res.message)
       } else {
-        setMessageTitle("error");
+        setMessageTitle("error");       
         setMessage(res.message);
+        alert(res.message)
       }
     })
     .catch((err) => {

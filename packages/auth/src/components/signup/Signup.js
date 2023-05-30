@@ -8,7 +8,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { handlesubmit } from "./signUpHelper";
+import { handlesubmit, yesterdaysDate } from "./signUpHelper";
 import Layout from "../layout/layout";
 import signUpStyles from "./signUpStyles";
 import signupForm from "./signupForm";
@@ -18,6 +18,8 @@ export default function SignUp() {
   const usenavigate = useHistory();
   const [messageTitle, setMessageTitle] = useState("");
   const [message, setMessage] = useState("");
+  const isNumber = (value) =>
+    Number(value) > -1 && value.indexOf(".") === -1 && value.indexOf("0") !== 0;
   const capitalizeFirstLetter = (value) =>
     value.charAt(0).toUpperCase() + value.slice(1);
   const formik = signupForm({
@@ -101,7 +103,7 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <TextField
+              <TextField
                   variant="outlined"
                   required
                   fullWidth
@@ -113,17 +115,23 @@ export default function SignUp() {
                   helperText={formik.touched.phoneNo && formik.errors.phoneNo}
                   value={formik.values.phoneNo}
                   onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
+                  onChange={(e) => {
+                    isNumber(e.target.value) && formik.handleChange(e);
+                  }}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <TextField
+              <TextField
                   variant="outlined"
                   fullWidth
                   id="dateOfBirth"
                   name="dateOfBirth"
                   type="date"
                   autoComplete="dateOfBirth"
+                  label="Date Of Birth"
+                  className={classes.textField}
+                  InputLabelProps={{ shrink: true }}
+                  InputProps={{ inputProps: { max: yesterdaysDate() } }}
                   error={
                     !!(formik.touched.dateOfBirth && formik.errors.dateOfBirth)
                   }

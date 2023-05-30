@@ -9,7 +9,7 @@ import {
     cardTitle
   } from "assets/jss/material-dashboard-pro-react.js";
   
-  const ChartStyle = {
+  const chartStyle = {
     cardTitle,
     cardCategory: {
       margin: "0",
@@ -51,5 +51,5 @@ import {
     }
   };
   
-  export default ChartStyle;
+  export default chartStyle;
   
