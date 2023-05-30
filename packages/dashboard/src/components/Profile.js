@@ -26,7 +26,8 @@ export default function Profile(props) {
   const classes = useStyles();
   const history = useHistory();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const url = 'https://localhost:7007/api/Users/5:int'; // Update the URL with the correct endpoint
+  const url = "https://localhost:7007/api/Users/"+sessionStorage.getItem("username"); // Update the URL with the correct endpoint
+  // const url = 'https://localhost:7007/api/Users/5:int';
   const [data, setData] = useState([]);
   // const formik = ProfileHelpers({
   //   submit: async (values) => {
@@ -50,9 +51,18 @@ export default function Profile(props) {
   }, []);
 
   const fetchInfo = () => {
-    return fetch(url)
+    return fetch(url,{
+        headers: { "Authorization": 'Bearer '+sessionStorage.getItem("jwttoken")
+      }
+    })
       .then((res) => res.json())
-      .then((d) => setData(d));
+      .then(
+        (d) => 
+        {
+      
+          setData(d)
+        }
+        );
   };
 
   console.log('data=====', Array(data));
