@@ -5,8 +5,10 @@ import ChartTwo from './ChartTwo';
 import Orders from './Orders';
 import DrawerMenu from './DrawerMenu';
 import { useStyles } from './Styles';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import ProfileHelpers, { handlePasswordUpdate } from './ProfileHelpers';
+import { useHistory } from 'react-router-dom';
+
+
 import {
   TextField,
   Grid,
@@ -22,11 +24,26 @@ import {
 
 export default function Profile(props) {
   const classes = useStyles();
+  const history = useHistory();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const url = 'https://localhost:7007/api/Users/5:int'; // Update the URL with the correct endpoint
   const [data, setData] = useState([]);
-  const passwordRegExp =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}/;
+  // const formik = ProfileHelpers({
+  //   submit: async (values) => {
+  //     debugger
+  //     formik.isValid &&
+     
+  //     handlePasswordUpdate(values );
+  //   },
+  // });
+
+  const formik = ProfileHelpers({
+    submit: async (values) => {
+      formik.isValid && handlePasswordUpdate(values, data, history, formik.resetForm);
+    },
+    // data, // Pass data as a prop to ProfileHelpers
+  });
+  
   
   useEffect(() => {
     fetchInfo();
@@ -41,76 +58,8 @@ export default function Profile(props) {
   console.log('data=====', Array(data));
   sessionStorage.setItem('fullnameUser', data.firstName + ' ' + data.lastName);
 
-  const formik = useFormik({
-    initialValues: {
-      oldPassword: '',
-      newPassword: '',
-      confirm: '',
-    },
-    validationSchema: Yup.object().shape({
-      oldPassword: Yup.string().required('Old Password is required.')
-      .matches(passwordRegExp, 'New Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character.'),
-      
-      newPassword: Yup.string()
-        .required('New Password is required.')
-        .matches(passwordRegExp, 'New Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character.')
-        .notOneOf([Yup.ref('oldPassword')], 'New Password must be different from Old Password.'),
-      
-        confirm: Yup.string()
-        .required('Confirm Password is required.')
-        .oneOf([Yup.ref('newPassword'), null], 'Passwords must match.')
-        .matches(passwordRegExp, 'Confirm Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one digit, and one special character.'),
-    }),
-    onSubmit: async (values) => {
-      await handlePasswordUpdate(values);
-    },
-  });
-  
 
-  const handlePasswordUpdate = (values) => {
-    const updateUrl = `https://localhost:7007/api/Users/${data.id}`; // Update the URL with the correct endpoint
 
-    // Create a request body with the old and new password
-    const requestBody = {
-      //oldPassword: values.oldPassword,
-      password: values.newPassword,
-    };
-
-    // Make a PATCH request to the API endpoint to update the password
-    fetch(updateUrl, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        // Check the response for success or error
-        if (response.code===200) {
-          // Password update successful
-          alert(response.message);
-          // Clear the input fields
-          formik.resetForm();
-        } 
-        else if(response.code===400) {
-          // Password update failed
-          alert(response.message);
-          console.error(response.error);
-        }
-        
-        else {
-          // Password update failed
-          alert('Failed to update password.');
-          console.error(response.error);
-        }
-      })
-      .catch((error) => {
-        // Error occurred during the request
-        alert('Failed to update password.');
-        console.error(error);
-      });
-  };
 
   return (
     <div className={classes.root}>
@@ -121,13 +70,16 @@ export default function Profile(props) {
         <Container maxWidth="xxl" className={classes.content}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6}>
-              <form onSubmit={formik.handleSubmit}>
+              <form onSubmit={formik.handleSubmit}
+            className={classes.form}
+            noValidate>
                 <Card>
                   <CardHeader subheader="Update password" title="Password" />
                   <Divider />
                   <CardContent>
                     <TextField
                       fullWidth
+                      required
                       label="Old Password"
                       margin="normal"
                       name="oldPassword"
@@ -144,6 +96,7 @@ export default function Profile(props) {
                       fullWidth
                       label="New Password"
                       margin="normal"
+                      required
                       name="newPassword"
                       type="password"
                       variant="outlined"
@@ -158,6 +111,7 @@ export default function Profile(props) {
                       fullWidth
                       label="Confirm Password"
                       margin="normal"
+                      required
                       name="confirm"
                       type="password"
                       variant="outlined"
@@ -170,7 +124,7 @@ export default function Profile(props) {
                   </CardContent>
                   <Divider />
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
-                    <Button color="primary" variant="contained" type="submit">
+                    <Button color="primary" variant="contained" type="submit" >
                       Update
                     </Button>
                   </Box>
