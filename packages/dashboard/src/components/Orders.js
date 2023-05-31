@@ -162,7 +162,7 @@ const EnhancedTableToolbar = (props) => {
       })}
     >
       {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+        <Typography className={classes.title} color="textSecondary" variant="subtitle1" component="div">
           {numSelected} selected
         </Typography>
       ) : (
@@ -195,6 +195,7 @@ EnhancedTableToolbar.propTypes = {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    maxWidth:"xl"
   },
   paper: {
     width: '100%',

@@ -21,7 +21,7 @@ const Main = () => {
             fontWeight: 'medium',
           }}
           gutterBottom
-          color={'secondary'}
+          color="textSecondary"
           align={'center'}
         >
           Our work

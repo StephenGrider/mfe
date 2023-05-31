@@ -17,7 +17,7 @@ const Team = () => {
             fontWeight: 'medium',
           }}
           gutterBottom
-          color={'secondary'}
+          color={'textSecondary'}
           align={'center'}
         >
           Our team

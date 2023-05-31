@@ -16,7 +16,7 @@ import signupForm from "./signupForm";
 export default function SignUp() {
   const classes = signUpStyles();
   const usenavigate = useHistory();
-  const [messageTitle, setMessageTitle] = useState("");
+  const [messageTitle, setMessageTitle] = useState("error");
   const [message, setMessage] = useState("");
   const isNumber = (value) =>
     Number(value) > -1 && value.indexOf(".") === -1 && value.indexOf("0") !== 0;
@@ -31,7 +31,7 @@ export default function SignUp() {
 
   return (
     <div className={classes.container}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main"  >
         <Alert severity={messageTitle} style={{ marginTop: "20px" }}>
           <AlertTitle>{capitalizeFirstLetter(messageTitle)}</AlertTitle>
           {message}

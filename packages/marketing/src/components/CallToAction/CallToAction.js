@@ -17,7 +17,7 @@ const CallToAction = () => {
         For Change  for impact  to advance
 
         </Typography>
-        <Typography color="text.secondary">
+        <Typography color="textSecondary">
         Digital platform solutions for the real estate industry supply chain
         </Typography>
       </Box>

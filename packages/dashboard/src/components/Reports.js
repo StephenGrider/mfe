@@ -69,9 +69,11 @@ const StyledBadge = withStyles((theme) => ({
     },
   },
 }))(Badge);
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    maxWidth:"xl"
   },
   grow: {
     flexGrow: 1,
@@ -280,7 +282,7 @@ export default function Reports() {
       
       <DrawerMenu />
 
-      <Container maxWidth="xxl" className={classes.content}>
+      <Container  className={classes.content}>
         <div className={classes.appBarSpacer} />
         <div className={classes.cardLayout}>
           <Paper variant="outlined">
@@ -355,7 +357,7 @@ export default function Reports() {
             </div>
           </Paper>
         </div>
-        <Container maxWidth="xxl" className={classes.content}>
+        <Container  className={classes.content}>
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={7} lg={9}>

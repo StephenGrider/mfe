@@ -21,13 +21,14 @@ const generateClassName = createGenerateClassName({
 const history = createBrowserHistory();
 
 export default () => {
-  //const [isSignedIn, setIsSignedIn] = useState(false);
-
-  // useEffect(() => {
-  //   if (isSignedIn) {
-  //     history.push('/dashboard');
-  //   }
-  // }, [isSignedIn]);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [apiBaseUrls, setApiBaseUrls] = useState(false);
+  useEffect(() => {
+    if (isSignedIn) {
+      history.push('/dashboard');
+    }
+    setApiBaseUrls(process.env.REACT_APP_API_URL)
+  }, [isSignedIn, process.env.REACT_APP_API_URL]);
 
   //console.log("3333333333",Number(sessionStorage.getItem("statusCode")))
   // const [isSignedIn, setIsSignedIn] = useState(false);
@@ -42,12 +43,14 @@ export default () => {
     <Router history={history}>
       <StylesProvider generateClassName={generateClassName}>
         <div>
-         <Header />           
+         <Header 
+         onSignOut={() => setIsSignedIn(false)}
+         isSignedIn={isSignedIn}/>           
           <Suspense fallback={<Progress />}>
             <Switch>
             {/* <AuthContext.Provider value={{ status: isSignedIn, login: login, logout: logout }}> */}
             <Route path="/auth">
-                <AuthLazy />
+                <AuthLazy onSignIn={() => setIsSignedIn(true)} apiBaseUrl={"apiBaseUrls"}/>
               </Route>
               <Route index path="/dashboard" >                
                 <DashboardLazy />

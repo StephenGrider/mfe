@@ -255,14 +255,14 @@ const DrawerMenu = props => {
                         </Badge>
                     </IconButton>
                     
-                    <Button
+                  <IconButton
                         ref={anchorRefMenu}
                         aria-controls={openMenu ? 'menu-list-grow' : undefined}
                         aria-haspopup="true"
                         onClick={handleToggleMenu}
                     >
-                        <StyledBadge
-                            overlap="circular"
+                        <Badge
+                            overlap={"rectangular"}
                             anchorOrigin={{
                                 vertical: 'bottom',
                                 horizontal: 'left',
@@ -280,8 +280,8 @@ const DrawerMenu = props => {
                                 color="secondary"
                                 style={{backgroundColor:"#FFF !important"}}
                             /> */}
-                        </StyledBadge>
-                    </Button>
+                        </Badge>
+                    </IconButton>
                     
                     <Popper open={openMenu} anchorEl={anchorRefMenu.current} role={undefined} transition disablePortal>
                         {({ TransitionProps, placement }) => (
@@ -295,11 +295,11 @@ const DrawerMenu = props => {
                                         {itemsListThree.map((item, index) => {
                                             const { text, icon, onClick } = item;
                                             return (<>
-                                                <ListItem button key={text} onClick={onClick}>
-                                                    {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                                                    <ListItemText primary={text} />
+                                                <ListItem button key={index+text+1} onClick={onClick}>
+                                                    {icon && <ListItemIcon key={index+text+"icon"}>{icon}</ListItemIcon>}
+                                                    <ListItemText primary={text} key={index+text+"listItemText"}/>
                                                 </ListItem>
-                                                <Divider />
+                                                <Divider key={index+text+"divider"} />
                                                 </>
                                             );
                                         })}
@@ -354,11 +354,11 @@ const DrawerMenu = props => {
                 {itemsList.map((item, index) => {
                     const { text, icon, onClick } = item;
                     return (<>
-                        <ListItem button key={text} onClick={onClick}>
-                            {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                            <ListItemText primary={text} />
+                        <ListItem button key={index+text+index+2} onClick={onClick}>
+                            {icon && <ListItemIcon key={index+text+index+2+"listItemIcon"}>{icon}</ListItemIcon>}
+                            <ListItemText primary={text}  key={index+text+index+2+"listItemText"}/>
                         </ListItem>
-                        <Divider />
+                        <Divider key={index+text+index+2+"divider"}/>
                         </>
                     );
                 })}
@@ -367,11 +367,11 @@ const DrawerMenu = props => {
                 {itemsListTwo.map((item, index) => {
                     const { text, icon, onClick } = item;
                     return (<>
-                        <ListItem button key={text} onClick={onClick}>
-                            {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                            <ListItemText primary={text} />
+                        <ListItem button key={index+text+index+3} onClick={onClick}>
+                            {icon && <ListItemIcon key={index+text+index+3+"ListItemIcon"+index}>{icon}</ListItemIcon>}
+                            <ListItemText primary={text} key={index+text+index+3+"ListItemIcon"} />
                         </ListItem>
-                        <Divider />
+                        <Divider key={index+text+index+3+"Divider"}/>
                         </>
                     );
                 })}

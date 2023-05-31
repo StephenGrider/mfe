@@ -3,6 +3,11 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const commonConfig = require('./webpack.common');
 const packageJson = require('../package.json');
+const Dotenv = require('dotenv-webpack');
+//const apiURL = require('dotenv').config();
+// const Dotenv = require('dotenv-webpack');
+//const apiUrl = process.env.API_URL;
+//console.log(apiURL);
 
 const devConfig = {
   mode: 'development',
@@ -14,6 +19,7 @@ const devConfig = {
     historyApiFallback: true,
   },
   plugins: [
+   //new Dotenv(),
     new ModuleFederationPlugin({
       name: 'container',
       remotes: {
@@ -25,7 +31,8 @@ const devConfig = {
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html'
-  })
+  }),
+  new Dotenv()
   ],
 };
 

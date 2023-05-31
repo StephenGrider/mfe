@@ -60,15 +60,15 @@ const Layout = () => {
             },
           }}
         >
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ p: 3 }} >
             <Typography
               align="center"
-              color="inherit"
               style={{ margin: "5% 0" }}
               sx={{
                 fontSize: "24px",
                 lineHeight: "32px",
                 mb: 1,
+                color: "#FFFFFF"
               }}
               variant="h2"
             >
@@ -90,7 +90,7 @@ const Layout = () => {
             </Typography>
             <Typography align="center" sx={{ mb: 3 }} variant="h3">
               <Link
-                color="inherit"
+                color="textSecondary"
                 href="https://kyanite360.com/"
                 target="_blank"
               >

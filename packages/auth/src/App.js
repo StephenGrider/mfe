@@ -11,8 +11,10 @@ import Signup from './components/signup/Signup';
 const generateClassName = createGenerateClassName({
   productionPrefix: 'au',
 });
-
+console.log("Auth files signin========================", process.env.REACT_APP_API_URL);
 export default ({ history, onSignIn }) => {
+console.log("onSignIn ==== 00000 ========================", onSignIn);
+  
   return (
     
       <StylesProvider generateClassName={generateClassName}>

@@ -65,6 +65,9 @@ export default function Header({ isSignedIn, onSignOut }, props) {
       onSignOut();
     }
   };
+  // const apiUrl = process.env.REACT_APP_API_URL ;
+  // console.log("========================", apiUrl);
+  
   return (
     <React.Fragment>
       <AppBar
@@ -74,7 +77,7 @@ export default function Header({ isSignedIn, onSignOut }, props) {
         <Toolbar className={classes.toolbar}>
           <Typography
             variant="h6"
-            color="inherit"
+            color="textSecondary"
             noWrap
             component={RouterLink}
             to="/"

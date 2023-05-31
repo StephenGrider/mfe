@@ -13,6 +13,7 @@ const drawerWidth = 240;
 export const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+        maxWidth:"100%"
     },
     cardTitle,
     cardCategory: {
@@ -104,11 +105,13 @@ export const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
+        maxWidth:"100%"
     },
     content: {
         flexGrow: 1,
         padding: theme.spacing(1),
-        flexDirection:"row"
+        flexDirection:"row",
+        maxWidth:"100%"
     },
     paper: {
         padding: theme.spacing(2),

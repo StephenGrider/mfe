@@ -3,7 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const commonConfig = require('./webpack.common');
 const packageJson = require('../package.json');
-
+//const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack');
 const devConfig = {
   mode: 'development',
   output: {
@@ -25,7 +26,12 @@ const devConfig = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
+    // new webpack.DefinePlugin({
+    //     'process.env': JSON.stringify("process.env")
+    // }),
+    new Dotenv()
   ],
+  
 };
 
 module.exports = merge(commonConfig, devConfig);

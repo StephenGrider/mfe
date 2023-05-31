@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     position:"relative",
-    clear:"both"
+    clear:"both",
+    maxWidth:"xl"
     
   },
   main: {
@@ -45,7 +46,7 @@ export default function StickyFooter() {
   return (
     <div className={classes.rootss}>
       <footer className={classes.footer}>
-        <Container maxWidth="sm">
+        <Container >
           {/* <Typography variant="body1">My sticky footer can be found here.</Typography> */}
           <Copyright />
         </Container>

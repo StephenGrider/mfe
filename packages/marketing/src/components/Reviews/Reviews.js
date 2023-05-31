@@ -23,7 +23,7 @@ const Reviews = () => {
           fontWeight: 'medium',
         }}
         gutterBottom
-        color={'secondary'}
+        color={'textSecondary'}
       >
         Our work
       </Typography>

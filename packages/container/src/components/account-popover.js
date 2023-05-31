@@ -39,7 +39,7 @@ export const AccountPopover = (props) => {
           Account
         </Typography>
         <Typography
-          color="text.secondary"
+          color="textSecondary"
           variant="body2"
         >
           Anika Visser

@@ -59,7 +59,7 @@ const Services = ({ themeMode = 'light' }) => {
               fontWeight: 'medium',
             }}
             gutterBottom
-            color={'secondary'}
+            color={'textSecondary'}
           >
             Services
           </Typography>
@@ -229,6 +229,7 @@ const Services = ({ themeMode = 'light' }) => {
                 component={Card}
                 boxShadow={{ xs: 1, sm: 3 }}
                 borderRadius={5}
+                key={item+i}
               >
                 <Box
                   component={CardContent}
