@@ -63,7 +63,7 @@ export default function SignIn(apiBaseUrl) {
       alignItems: "stretch", margin: "0px !important"
     }}>
       <div className={classes.signinForm}>
-      <Alert  severity={messeses} style={{ 
+      {printMessesesupdated !== ""? <Alert  severity={messeses} style={{ 
         marginTop: "20px",
         position: "absolute",
     top: "10px",
@@ -71,7 +71,7 @@ export default function SignIn(apiBaseUrl) {
     left: "0" }}>
         <AlertTitle>{messeses ? "error" :""}</AlertTitle>
         {messeses === "error" ? printMessesesupdated : messeses === "success" ? "Success" : ""}
-      </Alert>
+      </Alert> : ""}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
