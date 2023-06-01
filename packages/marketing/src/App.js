@@ -7,6 +7,7 @@ import {
 
 import Landing from './components/Landing';
 import Pricing from './components/Pricing';
+import ContactUs from './components/ContactUs';
 
 const generateClassName = createGenerateClassName({
   productionPrefix: 'ma',
@@ -18,6 +19,7 @@ export default ({ history }) => {
       <StylesProvider generateClassName={generateClassName}>
         <Router history={history}>
           <Switch>
+            <Route exact path="/contact" component={ContactUs} />
             <Route exact path="/pricing" component={Pricing} />
             <Route path="/" component={Landing} />
           </Switch>

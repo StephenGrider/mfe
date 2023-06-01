@@ -1,8 +1,10 @@
 import { mount } from 'auth/AuthApp';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-
-export default ({ onSignIn }) => {
+import AuthContext from '../../../auth/src/context/AuthContext';
+//import AuthContext from "../context/AuthContext"
+export default () => {
+  const { login } = useContext(AuthContext);
   const ref = useRef(null);
   const history = useHistory();
 
@@ -16,7 +18,7 @@ export default ({ onSignIn }) => {
           history.push(nextPathname);
         }
       },
-      onSignIn,
+      login,
     });
 
     history.listen(onParentNavigate);

@@ -3,8 +3,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import { Link as RouterLink } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
+    background:"#000 !important",
+    color:"#FFF !important",
+    zIndex:"999",
   },
   toolbar: {
     flexWrap: 'wrap',
@@ -54,20 +57,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({ isSignedIn, onSignOut }) {
+export default function Header({ isSignedIn, onSignOut }, props) {
   const classes = useStyles();
-
+  const { open, onClose } = props;
   const onClick = () => {
     if (isSignedIn && onSignOut) {
       onSignOut();
     }
   };
-
   return (
     <React.Fragment>
       <AppBar
-        position="static"
-        color="default"
         elevation={0}
         className={classes.appBar}
       >
@@ -79,10 +79,10 @@ export default function Header({ isSignedIn, onSignOut }) {
             component={RouterLink}
             to="/"
           >
-            App
+            <img src={require("./logo.svg").default} className={classes.appLogo}  alt="logo" />
           </Typography>
           <Button
-            color="primary"
+            color="secondary"
             variant="outlined"
             className={classes.link}
             component={RouterLink}
@@ -91,8 +91,9 @@ export default function Header({ isSignedIn, onSignOut }) {
           >
             {isSignedIn ? 'Logout' : 'Login'}
           </Button>
+          
         </Toolbar>
-      </AppBar>
+      </AppBar><div style={{height:"64px", width:"100%"}}></div>
     </React.Fragment>
   );
 }
