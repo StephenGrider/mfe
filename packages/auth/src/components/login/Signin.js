@@ -32,13 +32,9 @@ export default function SignIn() {
       "password": values.password
     };
     signin(inputobj)
-    // fetch("https://localhost:7007/api/Users/Authenticate", {
-    //   method: 'POST',
-    //   headers: { 'content-type': 'application/json' },
-    //   body: JSON.stringify(inputobj)
-    // })
+  
     .then((res) => {
-      // debugger
+     
       if (res.status === 200) {
         sessionStorage.setItem('statusCode', res.status);
         toast.success('Success');

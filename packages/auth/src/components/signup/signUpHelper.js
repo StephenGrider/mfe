@@ -80,7 +80,7 @@ export const handlesubmit = async (
     phoneNumber: values.phoneNo,
     dateOfBirth: values.dateOfBirth,
   };
-debugger;
+
   signup(user)
   .then((res) => {
     console.log(res); // Log the response object to check its structure

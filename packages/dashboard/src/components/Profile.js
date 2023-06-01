@@ -29,14 +29,7 @@ export default function Profile(props) {
   const url = "https://localhost:7007/api/Users/"+sessionStorage.getItem("username"); // Update the URL with the correct endpoint
   // const url = 'https://localhost:7007/api/Users/5:int';
   const [data, setData] = useState([]);
-  // const formik = ProfileHelpers({
-  //   submit: async (values) => {
-  //     debugger
-  //     formik.isValid &&
-     
-  //     handlePasswordUpdate(values );
-  //   },
-  // });
+ 
 
   const formik = ProfileHelpers({
     submit: async (values) => {

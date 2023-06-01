@@ -81,7 +81,6 @@ const formik = useFormik({
   export default ProfileHelpers;
  
   export const handleLogout = (history) => {
-   debugger;
     sessionStorage.removeItem("jwttoken");
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("statusCode");

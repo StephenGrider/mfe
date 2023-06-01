@@ -55,6 +55,6 @@ export const delete_ = ({ url, params = null }) => {
 };
 
 export const patch = ({ url,body, params = null }) => {
-  debugger;
+ 
   return client.patch(url, body, params && { params: params });
 };
