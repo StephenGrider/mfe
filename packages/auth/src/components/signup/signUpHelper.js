@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { createUser } from "../../../services/user.service";
+import { createUser, signup } from "../../../services/user.service";
 export const yesterdaysDate = () => {
   const date = new Date();
   const yesterday = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1, 0, 0, 0, 0);
@@ -80,34 +80,36 @@ export const handlesubmit = async (
     phoneNumber: values.phoneNo,
     dateOfBirth: values.dateOfBirth,
   };
+debugger;
+  signup(user)
+  .then((res) => {
+    console.log(res); // Log the response object to check its structure
+    if (res && res.status === 200) {
+      setMessageTitle("success");
+      setMessage(res.data.message);
+      alert(res.data.message);
+      usenavigate.push("/auth/signin");
+    } else if (res && res.status === 409) {
+      setMessageTitle("error");
+      setMessage(res.data.message);
+      alert(res.data.message);
+    } else {
+      setMessageTitle("error");
+      setMessage(res.data.message);
+      alert(res.data.message);
+    }
+  })
+  .catch((err) => {
+    console.log(err); // Log the error object to check its structure
+    if (err && err.status === 409) {
+      setMessageTitle("error");
+      setMessage(err.data.message);
+    } else {
+      setMessageTitle("error");
+      setMessage(err.title || err.message);
+    }
+  });
 
-  createUser(user)
-    .then((res) => {
-      console.log(res);
-      if (res && res.code === 200) {
-        setMessageTitle("success");
-        setMessage(res.message);
-        alert(res.message)
-        usenavigate.push("/auth/signin");
-      } else if (res && res.code === 406) {
-        setMessageTitle("error");
-        setMessage(res.message);
-        alert(res.message)
-      } else {
-        setMessageTitle("error");       
-        setMessage(res.message);
-        alert(res.message)
-      }
-    })
-    .catch((err) => {
-      if (err && err.code === 406) {
-        setMessageTitle("error");
-        setMessage(err.message);
-      } else {
-        setMessageTitle("error");
-        setMessage(err.title || err.message);
-      }
-    });
 };
 
 // const ProceedLoginusingAPI = (e) => {

@@ -1,56 +1,44 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { updatePassword } from "../services/user.service";
 
 export  const handlePasswordUpdate = (values,data,history, resetForm) => {
-
-
-    const updateUrl = `https://localhost:7007/api/Users/${data.id}`; // Update the URL with the correct endpoint
-    
-
-    // Create a request body with the old and new password
+  //const history = useHistory();
     const requestBody = {
       
       password: values.oldPassword,
       newPassword:values.newPassword
     };
-
-    // Make a PATCH request to the API endpoint to update the password
-    fetch(updateUrl, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    })
-      .then((res) => res.json())
+    updatePassword(requestBody, data.id)
+      // .then((res) => res.json())
       .then((response) => {
         // Check the response for success or error
-        if (response.code===200) {
+        if (response.status===200) {
           // Password update successful
-          alert(response.message);
+          alert(response.data.message);
           //usenavigate.push("/auth/signin");
           handleLogout(history)
           // Clear the input fields
         //   formik.resetForm();
         } 
-        else if(response.code===400) {
+        else if(response.status===400) {
           // Password update failed
-          alert(response.message);
-          console.error(response.error);
+          alert(response.data.message);
+          console.error(response.data.error);
           resetForm();
         }
         
         else {
           // Password update failed
-          alert('Failed to update password.');
-          console.error(response.error);
+          alert(response.data.error);
+          console.error(response.data.error);
           resetForm();
         }
       })
       .catch((error) => {
         // Error occurred during the request
-        alert('Failed to update password.');
-        console.error(error);
+        alert(error.response.data.message);
+        console.error(error.response.data.message);
         resetForm();
       });
   };
@@ -96,10 +84,12 @@ const formik = useFormik({
   export default ProfileHelpers;
  
   export const handleLogout = (history) => {
-   
+   debugger;
     sessionStorage.removeItem("jwttoken");
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("statusCode");
     sessionStorage.removeItem("fullnameUser");
     history.push("/auth/signin");
 };
+
+

@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { signin } from "../../../services/user.service";
 
 export const validateText = (value) => {
   return value && value.length > 0 && value.length < 250;
@@ -42,14 +43,15 @@ export const ProceedLoginusingAPI = (e, username, password) => {
       password: password,
       role: "Admin",
     };
-    fetch("https://localhost:7007/api/Users/Authenticate", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(inputobj),
-    })
-      .then((res) => {
-        return res.json();
-      })
+    // fetch("https://localhost:7007/api/Users/Authenticate", {
+    //   method: "POST",
+    //   headers: { "content-type": "application/json" },
+    //   body: JSON.stringify(inputobj),
+    // })
+    signin(inputobj)
+      // .then((res) => {
+      //   return res.json();
+      // })
       .then((resp) => {
         console.log("resp=======", resp);
         if (Object.keys(resp).length === 0) {

@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import Layout from "../layout/layout";
 import styles from "./loginStyles";
 import loginForm from "./loginForm";
-
+import { signin } from "../../../services/user.service";
 
 export default function SignIn() {
   const classes = styles();
@@ -31,11 +31,14 @@ export default function SignIn() {
       "email": values.username,
       "password": values.password
     };
-    fetch("https://localhost:7007/api/Users/Authenticate", {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(inputobj)
-    }).then((res) => {
+    signin(inputobj)
+    // fetch("https://localhost:7007/api/Users/Authenticate", {
+    //   method: 'POST',
+    //   headers: { 'content-type': 'application/json' },
+    //   body: JSON.stringify(inputobj)
+    // })
+    .then((res) => {
+      // debugger
       if (res.status === 200) {
         sessionStorage.setItem('statusCode', res.status);
         toast.success('Success');
@@ -44,14 +47,14 @@ export default function SignIn() {
       } else {
         messesesupdate("error")
       }
-      return res.json();
-    }).then((resp) => {
+      // return res.json();
+    // }).then((resp) => {
       sessionStorage.setItem('username', values.username);
-      sessionStorage.setItem('jwttoken', resp.jwtToken);      
-      setPrintMessesesupdated(resp.message)
+      sessionStorage.setItem('jwttoken', res.data.jwtToken);      
+      setPrintMessesesupdated(res.data.message || 'Successfully Logged in.')
     }).catch((err) => {
       messesesupdate("error")
-      toast.error('Login Failed due to :' + err.message);
+      toast.error('Login Failed due to :' + err.response.data.message);
       usenavigate.push('/auth/signin')
     });
   }

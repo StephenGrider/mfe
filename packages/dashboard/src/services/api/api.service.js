@@ -28,9 +28,11 @@ import { ApiConstants as constant } from "./api.constant";
 //   }
 // };
 
+
+
 export const client = axios.create({
   baseURL: constant.baseUrl,
-  timeout: 1000,
+  // timeout: 1000,
   headers: {
     "Content-type": "application/json",
   },
@@ -52,6 +54,7 @@ export const delete_ = ({ url, params = null }) => {
   return client.delete(url, params && { params: params });
 };
 
-export const patch = ({ url, params = null }) => {
+export const patch = ({ url,body, params = null }) => {
+  debugger;
   return client.patch(url, body, params && { params: params });
 };
