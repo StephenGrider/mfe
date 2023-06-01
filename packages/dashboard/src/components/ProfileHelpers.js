@@ -36,7 +36,6 @@ export  const handlePasswordUpdate = (values,data,history, resetForm) => {
         }
       })
       .catch((error) => {
-        // Error occurred during the request
         alert(error.response.data.message);
         console.error(error.response.data.message);
         resetForm();
@@ -76,8 +75,6 @@ const formik = useFormik({
    
       
   });
-    
-
 
   return formik;
 };
