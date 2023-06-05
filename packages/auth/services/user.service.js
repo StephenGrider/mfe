@@ -5,9 +5,14 @@ import {
 import { callApi } from "./api.service";
 
 export const authenticateUser = async (user) => {
+  console.log("user=====================", user)
   return await callApi({
     url: endpoint.user.authenticate,
+    body: JSON.stringify(user),
     method: constant.method.post,
+    'headers': {
+      'Content-Type': 'application/json'
+    },
   });
 };
 

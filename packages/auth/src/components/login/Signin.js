@@ -33,7 +33,7 @@ export default function SignIn(apiBaseUrl) {
       "email": values.username,
       "password": values.password
     };
-    fetch("https://localhost:7007/api/Users/Authenticate", {
+    fetch("https://localhost:5129/Authenticate", {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(inputobj)

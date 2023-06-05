@@ -1,5 +1,5 @@
 export const ApiConstants = {
-  baseUrl: "https://localhost:7007/",
+  baseUrl: process.env.REACT_APP_API_URL,
   defaultHeader: {
     "Content-Type": "application/json",
   },
@@ -14,13 +14,13 @@ export const ApiConstants = {
 
 export const ApiEndpoints = {
   user: {
-    getAll: "api/Users",
-    getById: "api/Users/",
-    create: "api/Users",
-    update: "api/Users/",
-    delete: "api/Users/",
-    authenticate: "api/Users/Authenticate",
-    refresh: "api/Users/refresh",
+    getAll: "/Users",
+    getById: "/Users/",
+    create: "/Users",
+    update: "/Users/",
+    delete: "/Users/",
+    authenticate: "/Authenticate",
+    refresh: "/refresh",
   },
   product: {
     getAll: "api/Products",
