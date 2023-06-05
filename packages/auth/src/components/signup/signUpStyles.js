@@ -42,8 +42,6 @@ display:"none"
     //height: "100vh",
     "@media (max-width: 992px)": {
       display: "block",
-      
-      
     },
   },
   signinForm:{

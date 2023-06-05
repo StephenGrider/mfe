@@ -8,14 +8,14 @@ import WrapTextSharpIcon from '@material-ui/icons/WrapTextSharp';
 import PeopleAltSharpIcon from '@material-ui/icons/PeopleAltSharp';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Chart from './Chart';
-import ChartTwo from './ChartTwo';
-import Orders from './Orders';
-import DrawerMenu from './DrawerMenu';
-import {useStyles} from "./Styles"
+import Chart from '../Chart/Chart';
+import ChartTwo from '../Chart/ChartTwo';
+import Orders from '../Orders/Orders';
+import DrawerMenu from '../Menu/DrawerMenu';
+import {useStyles} from "../Styles/Styles"
 
 
-export default function LastQuarter() {
+export default function OrdersPage() {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (

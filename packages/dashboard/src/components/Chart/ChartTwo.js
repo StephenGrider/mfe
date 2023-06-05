@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import Title from './Title';
+
 
 const data = [
   { name: "Group A", value: 400 },

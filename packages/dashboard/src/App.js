@@ -1,32 +1,25 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Router, Redirect, useHistory  } from 'react-router-dom';
+import { Switch, Route, Router } from 'react-router-dom';
 import {
   StylesProvider,
   createGenerateClassName,
 } from '@material-ui/core/styles';
-import CurrentMonth from './components/CurrentMonth';
+import CurrentMonth from './components/CurrentMonth/CurrentMonth';
 import Dashboard from './components/Dashboard';
-import Customers from './components/Customers';
-import Integrations from './components/Integrations';
-import LastQuarter from './components/LastQuarter';
-import Reports from './components/Reports';
-import YearEndSale from './components/YearEndSale';
-import OrdersPage from './components/OrdersPage';
-import { Link } from '@material-ui/core';
-import Profile from './components/Profile';
-import MyAccount from './components/MyAccount';
-import AuthApp from './components/AuthApp';
+import Customers from './components/Customers/Customers';
+import Integrations from './components/Integrations/Integrations';
+import LastQuarter from './components/LastQuarter/LastQuarter';
+import Reports from './components/Reports/Reports';
+import YearEndSale from './components/YearEndSale/YearEndSale';
+import OrdersPage from './components/Orders/OrdersPage';
+import Profile from './components/Profile/Profile';
+import MyAccount from './components/MyAccount/MyAccount';
+import AuthApp from './components/AuthApp'; 
 
-//import  PrivateRoute  from './ProtectedRoute';
-//import { AuthContext } from "./../utils/Auth";
 const generateClassName = createGenerateClassName({
   productionPrefix: 'da',
 });
-let statusCodes = sessionStorage.getItem("statusCode");
-console.log("statusCodes===", statusCodes)
 export default ({ history }) => {
-  console.log("sessionStorage===", sessionStorage.length)
-  const usenavigate = useHistory();
   return (
     <div>
       <StylesProvider generateClassName={generateClassName}>

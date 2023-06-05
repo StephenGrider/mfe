@@ -41,8 +41,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import { useStyles } from "./Styles";
-
+import { useStyles } from "../Styles/Styles";
 
 
 const StyledBadge = withStyles((theme) => ({
@@ -250,11 +249,15 @@ const DrawerMenu = props => {
                 <div className={classes.grow} />
                 <div className={classes.sectionDesktop}>
                     <IconButton color="inherit">
-                        <Badge badgeContent={4} >
+                        <Badge badgeContent={4} color="secondary">
                             <NotificationsIcon />
                         </Badge>
                     </IconButton>
-                    
+                    <IconButton color="inherit">
+                    <Badge badgeContent={4} color="secondary">
+                    <MailIcon />
+                    </Badge>
+                    </IconButton>
                   <IconButton
                         ref={anchorRefMenu}
                         aria-controls={openMenu ? 'menu-list-grow' : undefined}

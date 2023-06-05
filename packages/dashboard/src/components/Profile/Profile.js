@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import clsx from 'clsx';
 import Container from '@material-ui/core/Container';
-import ChartTwo from './ChartTwo';
-import Orders from './Orders';
-import DrawerMenu from './DrawerMenu';
-import {useStyles} from "./Styles"
+import Orders from '../Orders/Orders';
+import DrawerMenu from '../Menu/DrawerMenu';
+import {useStyles} from "../Styles/Styles"
 import {
   TextField,
   Grid,

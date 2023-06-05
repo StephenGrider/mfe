@@ -8,7 +8,7 @@ import {
     roseColor,
     grayColor,
     cardTitle
-  } from "./chartList/components/styles/material-dashboard-pro-react.js";
+  } from "../chartList/components/styles/material-dashboard-pro-react.js";
 const drawerWidth = 240;
 export const useStyles = makeStyles((theme) => ({
     root: {

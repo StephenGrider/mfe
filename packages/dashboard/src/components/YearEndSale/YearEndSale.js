@@ -8,14 +8,14 @@ import WrapTextSharpIcon from '@material-ui/icons/WrapTextSharp';
 import PeopleAltSharpIcon from '@material-ui/icons/PeopleAltSharp';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Chart from './Chart';
-import ChartTwo from './ChartTwo';
-import Orders from './Orders';
-import DrawerMenu from './DrawerMenu';
-import {useStyles} from "./Styles"
+import Chart from '../Chart/Chart';
+import ChartTwo from '../Chart/ChartTwo';
+import Orders from '../Orders/Orders';
+import DrawerMenu from '../Menu/DrawerMenu';
+import {useStyles} from "../Styles/Styles"
 
 
-export default function MyAccount() {
+export default function YearEndSale() {
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (
@@ -96,7 +96,7 @@ export default function MyAccount() {
             </div>
           </Paper>
         </div>
-        <Container  className={classes.content}>
+        <Container className={classes.content}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={7} lg={9}>
               <Paper className={fixedHeightPaper}>

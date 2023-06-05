@@ -15,31 +15,31 @@ export const mainListItems = (
   <div>
     <ListItem button >
       <ListItemIcon >
-        <DashboardIcon style={{color:"#FFF"}}/>
+        <DashboardIcon style={{ color: "#FFF" }} />
       </ListItemIcon>
-      <ListItemText primary="Dashboard"  />
+      <ListItemText primary="Dashboard" />
     </ListItem>
     <ListItem button>
       <ListItemIcon >
-        <ShoppingCartIcon style={{color:"#FFF"}}/>
+        <ShoppingCartIcon style={{ color: "#FFF" }} />
       </ListItemIcon>
       <ListItemText primary="Orders" />
     </ListItem>
     <ListItem button >
       <ListItemIcon >
-        <PeopleIcon style={{color:"#FFF"}}/>
+        <PeopleIcon style={{ color: "#FFF" }} />
       </ListItemIcon>
       <ListItemText primary="Customers" />
     </ListItem>
     <ListItem button  >
       <ListItemIcon >
-        <BarChartIcon style={{color:"#FFF"}}/>
+        <BarChartIcon style={{ color: "#FFF" }} />
       </ListItemIcon>
       <ListItemText primary="Reports" />
     </ListItem>
     <ListItem button  >
       <ListItemIcon >
-        <LayersIcon style={{color:"#FFF"}}/>
+        <LayersIcon style={{ color: "#FFF" }} />
       </ListItemIcon>
       <ListItemText primary="Integrations" />
     </ListItem>
@@ -50,19 +50,19 @@ export const secondaryListItems = (
   <div>
     <ListItem button>
       <ListItemIcon >
-        <AssignmentIcon style={{color:"#FFF"}}/>
+        <AssignmentIcon style={{ color: "#FFF" }} />
       </ListItemIcon>
       <ListItemText primary="Current month" />
     </ListItem>
     <ListItem button>
       <ListItemIcon >
-        <AssignmentIcon style={{color:"#FFF"}} />
+        <AssignmentIcon style={{ color: "#FFF" }} />
       </ListItemIcon>
       <ListItemText primary="Last quarter" />
     </ListItem>
     <ListItem button>
       <ListItemIcon >
-        <AssignmentIcon style={{color:"#FFF"}}/>
+        <AssignmentIcon style={{ color: "#FFF" }} />
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
     </ListItem>

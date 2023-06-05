@@ -1,17 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { alpha, makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Button from '@material-ui/core/Button';
 import blueGrey from '@material-ui/core/colors/red';
 import Paper from '@material-ui/core/Paper';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
@@ -21,24 +11,11 @@ import WrapTextSharpIcon from '@material-ui/icons/WrapTextSharp';
 import PeopleAltSharpIcon from '@material-ui/icons/PeopleAltSharp';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Chart from './Chart';
-import ChartTwo from './ChartTwo';
-import Orders from './Orders';
+import Chart from '../Chart/Chart';
+import ChartTwo from '../Chart/ChartTwo';
+import Orders from '../Orders/Orders';
 import Badge from '@material-ui/core/Badge';
-import Avatar from '@material-ui/core/Avatar';
-import { mainListItems, secondaryListItems } from './listItems';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import Popper from '@material-ui/core/Popper';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Chip from '@material-ui/core/Chip';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import DrawerMenu from './DrawerMenu';
-const primary = blueGrey[500];
+import DrawerMenu from '../Menu/DrawerMenu';
 
 const drawerWidth = 240;
 const StyledBadge = withStyles((theme) => ({
@@ -198,7 +175,6 @@ const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
