@@ -5,9 +5,10 @@ import {
   createGenerateClassName,
 } from '@material-ui/core/styles';
 import { createBrowserHistory } from 'history';
-
+import AuthContext from "../../auth/src/context/AuthContext"
 import Progress from './components/Progress';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 const MarketingLazy = lazy(() => import('./components/MarketingApp'));
 const AuthLazy = lazy(() => import('./components/AuthApp'));
@@ -21,33 +22,47 @@ const history = createBrowserHistory();
 
 export default () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
-
+  const [apiBaseUrls, setApiBaseUrls] = useState(false);
   useEffect(() => {
     if (isSignedIn) {
       history.push('/dashboard');
     }
-  }, [isSignedIn]);
+    setApiBaseUrls(process.env.REACT_APP_API_URL)
+  }, [isSignedIn, process.env.REACT_APP_API_URL]);
 
+  //console.log("3333333333",Number(sessionStorage.getItem("statusCode")))
+  // const [isSignedIn, setIsSignedIn] = useState(false);
+  // const login = () => {
+  //   setIsSignedIn(true);
+  // };
+  
+  // const logout = () => {
+  //   setIsSignedIn(false);
+  // };
   return (
     <Router history={history}>
       <StylesProvider generateClassName={generateClassName}>
         <div>
-          <Header
-            onSignOut={() => setIsSignedIn(false)}
-            isSignedIn={isSignedIn}
-          />
+         <Header 
+         onSignOut={() => setIsSignedIn(false)}
+         isSignedIn={isSignedIn}/>           
           <Suspense fallback={<Progress />}>
             <Switch>
-              <Route path="/auth">
-                <AuthLazy onSignIn={() => setIsSignedIn(true)} />
+            {/* <AuthContext.Provider value={{ status: isSignedIn, login: login, logout: logout }}> */}
+            <Route path="/auth">
+                <AuthLazy onSignIn={() => setIsSignedIn(true)} apiBaseUrl={"apiBaseUrls"}/>
               </Route>
-              <Route path="/dashboard">
-                {!isSignedIn && <Redirect to="/" />}
+              <Route index path="/dashboard" >                
                 <DashboardLazy />
               </Route>
               <Route path="/" component={MarketingLazy} />
+              
+              {/* </AuthContext.Provider> */}
             </Switch>
+            
+            <Footer />
           </Suspense>
+          
         </div>
       </StylesProvider>
     </Router>

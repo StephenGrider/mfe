@@ -3,17 +3,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const commonConfig = require('./webpack.common');
 const packageJson = require('../package.json');
-
+//const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack');
 const devConfig = {
   mode: 'development',
   output: {
-    publicPath: 'http://localhost:8082/',
+    publicPath: 'http://localhost:8012/',
   },
   devServer: {
-    port: 8082,
-    historyApiFallback: {
-      index: 'index.html',
-    },
+    port: 8012,
+    historyApiFallback: true,
   },
   plugins: [
     new ModuleFederationPlugin({
@@ -27,7 +26,9 @@ const devConfig = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
+    new Dotenv()
   ],
+  
 };
 
 module.exports = merge(commonConfig, devConfig);

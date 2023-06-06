@@ -2,23 +2,22 @@ import { mount } from 'auth/AuthApp';
 import React, { useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-export default ({ onSignIn }) => {
+export default ({ onSignIn, apiBaseUrl }) => {
   const ref = useRef(null);
   const history = useHistory();
-
   useEffect(() => {
     const { onParentNavigate } = mount(ref.current, {
       initialPath: history.location.pathname,
       onNavigate: ({ pathname: nextPathname }) => {
         const { pathname } = history.location;
-
         if (pathname !== nextPathname) {
           history.push(nextPathname);
         }
       },
       onSignIn,
+      apiBaseUrl
     });
-
+    process.env.REACT_APP_API_URL
     history.listen(onParentNavigate);
   }, []);
 

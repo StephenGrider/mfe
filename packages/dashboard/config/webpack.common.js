@@ -1,22 +1,10 @@
-const { VueLoaderPlugin } = require('vue-loader');
-
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: '[name].[contenthash].js',
-  },
-  resolve: {
-    extensions: ['.js', '.vue'],
-  },
   module: {
     rules: [
       {
         test: /\.(png|jpe?g|gif|woff|svg|eot|ttf)$/i,
-        use: [{ loader: 'file-loader' }],
-      },
-      {
-        test: /\.vue$/,
-        use: 'vue-loader',
+        use: [{ loader: 'file-loader'}],
       },
       {
         test: /\.scss|\.css$/,
@@ -28,12 +16,16 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
+            presets: ['@babel/preset-react', '@babel/preset-env'],
             plugins: ['@babel/plugin-transform-runtime'],
           },
         },
       },
     ],
-  },
-  plugins: [new VueLoaderPlugin()],
+  }, 
+  plugins: [
+    new HtmlWebpackPlugin({
+        template: './public/index.html'
+    })
+] 
 };
