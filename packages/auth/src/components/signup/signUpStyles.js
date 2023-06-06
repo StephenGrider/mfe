@@ -1,6 +1,6 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core";
 
-const signUpStyles = makeStyles((theme) => ({
+const loginStyles = makeStyles((theme) => ({
   root:{
     width:"50% !important",
     "@media (min-width: 992px)": {
@@ -42,6 +42,8 @@ display:"none"
     //height: "100vh",
     "@media (max-width: 992px)": {
       display: "block",
+      
+      
     },
   },
   signinForm:{
@@ -83,4 +85,4 @@ alignItems: "center"
   },
 }));
 
-export default signUpStyles;
+export default loginStyles;

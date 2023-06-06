@@ -1,13 +1,30 @@
 import { toast } from "react-toastify";
-import { createUser } from "../../../services/user.service";
+import { signup } from "../../../services/user.service";
+
+export const capitalizeFirstLetter = (value) =>
+  value.charAt(0).toUpperCase() + value.slice(1);
+
+export const isNumber = (value) =>
+  Number(value) > -1 && value.indexOf(".") === -1 && value.indexOf("0") !== 0;
+
 export const yesterdaysDate = () => {
   const date = new Date();
-  const yesterday = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1, 0, 0, 0, 0);
+  const yesterday = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate() - 1,
+    0,
+    0,
+    0,
+    0
+  );
   const month = yesterday.getMonth() + 1;
   const monthStr = month > 9 ? month : "0" + month;
-  const yesterdayStr = yesterday.getFullYear() + "-" + monthStr + "-" + yesterday.getDate();
+  const yesterdayStr =
+    yesterday.getFullYear() + "-" + monthStr + "-" + yesterday.getDate();
   return yesterdayStr;
 };
+
 export const IsValidate = ({
   firstname,
   lastname,
@@ -67,46 +84,37 @@ export const IsValidate = ({
 export const handlesubmit = async (
   values,
   usenavigate,
-  setMessage,
-  setMessageTitle
+  setAlert,
+  setAlertType,
+  setShowAlert
 ) => {
-  let user = {
+  signup({
     id: 0,
     firstName: values.firstName,
     lastName: values.lastName,
-    role: "Admin",
+    role: values.role,
     email: values.userName,
     password: values.password,
     phoneNumber: values.phoneNo,
     dateOfBirth: values.dateOfBirth,
-  };
-
-  createUser(user)
+  })
     .then((res) => {
-      console.log(res);
-      if (res && res.code === 200) {
-        setMessageTitle("success");
-        setMessage(res.message);
-        alert(res.message)
-        usenavigate.push("/auth/signin");
-      } else if (res && res.code === 406) {
-        setMessageTitle("error");
-        setMessage(res.message);
-        alert(res.message)
+      if (res && res.status === 200) {
+        setAlertType("success");
+        setShowAlert(true);
+        setAlert(res.data.message || "Signed up successfully.");
       } else {
-        setMessageTitle("error");       
-        setMessage(res.message);
-        alert(res.message)
+        setAlertType("error");
+        setShowAlert(true);
+        setAlert(res.data.message || "Signed up failed.");
+        usenavigate.push("/auth/signup");
       }
     })
     .catch((err) => {
-      if (err && err.code === 406) {
-        setMessageTitle("error");
-        setMessage(err.message);
-      } else {
-        setMessageTitle("error");
-        setMessage(err.title || err.message);
-      }
+      setAlertType("error");
+      setShowAlert(true);
+      setAlert(err.response.data.message || "Signed up failed.");
+      usenavigate.push("/auth/signup");
     });
 };
 

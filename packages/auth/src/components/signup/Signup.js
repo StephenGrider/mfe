@@ -2,40 +2,46 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
-import { Alert, AlertTitle } from "@material-ui/lab";
-import { handlesubmit, yesterdaysDate } from "./signUpHelper";
+import { handlesubmit, isNumber, yesterdaysDate } from "./signUpHelper";
 import Layout from "../layout/layout";
 import signUpStyles from "./signUpStyles";
 import signupForm from "./signupForm";
+import SnackbarAlert from "../notification/SnackbarAlert";
 
 export default function SignUp() {
   const classes = signUpStyles();
   const usenavigate = useHistory();
-  const [messageTitle, setMessageTitle] = useState("error");
-  const [message, setMessage] = useState("");
-  const isNumber = (value) =>
-    Number(value) > -1 && value.indexOf(".") === -1 && value.indexOf("0") !== 0;
-  const capitalizeFirstLetter = (value) =>
-    value.charAt(0).toUpperCase() + value.slice(1);
+  const [alert, setAlert] = useState("");
+  const [alertType, setAlertType] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
   const formik = signupForm({
     submit: async (values) => {
       formik.isValid &&
-        handlesubmit(values, usenavigate, setMessage, setMessageTitle);
+        handlesubmit(values, usenavigate, setAlert, setAlertType, setShowAlert);
     },
   });
 
   return (
     <div className={classes.container}>
-      <Container component="main"  >
-        <Alert severity={messageTitle} style={{ marginTop: "20px" }}>
-          <AlertTitle>{capitalizeFirstLetter(messageTitle)}</AlertTitle>
-          {message}
-        </Alert>
+      <SnackbarAlert
+        title={alertType}
+        message={alert}
+        showAlert={showAlert}
+        handleClose={() => {
+          setShowAlert(false);
+          usenavigate.push("/dashboard");
+        }}
+      />
+      <Container  className={classes.layoutContainers} style={{
+      alignItems: "stretch", margin: "0px !important"
+    }}>
+      <div className={classes.signinForm}>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -103,7 +109,7 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-              <TextField
+                <TextField
                   variant="outlined"
                   required
                   fullWidth
@@ -121,7 +127,7 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-              <TextField
+                <TextField
                   variant="outlined"
                   fullWidth
                   id="dateOfBirth"
@@ -142,6 +148,27 @@ export default function SignUp() {
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                 />
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  autoComplete="role"
+                  name="role"
+                  id="role"
+                  select
+                  label="Role"
+                  value={formik.values.role}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={!!(formik.touched.role && formik.errors.role)}
+                  helperText={formik.touched.role && formik.errors.role}
+                  fullWidth
+                  variant="outlined"
+                  required
+                >
+                  <MenuItem value="">Select a role</MenuItem>
+                  <MenuItem value="Admin">Admin</MenuItem>
+                  <MenuItem value="User">User</MenuItem>
+                </TextField>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -201,6 +228,8 @@ export default function SignUp() {
             </Grid>
           </form>
         </div>
+        </div>
+        <div className={classes.leftside}></div>    
       </Container>
       <Container
         className={classes.layoutContainer}

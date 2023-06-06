@@ -14,19 +14,13 @@ export const ApiConstants = {
 
 export const ApiEndpoints = {
   user: {
-    getAll: "/Users",
-    getById: "/Users/",
-    create: "/Users",
-    update: "/Users/",
-    delete: "/Users/",
+    getAll: "/api/Users",
+    getById: "/api/Users/",
+    create: "/api/Users",
+    update: "/api/Users/",
+    delete: "/api/Users/",
     authenticate: "/Authenticate",
     refresh: "/refresh",
   },
-  product: {
-    getAll: "api/Products",
-    getById: "api/Products/",
-    create: "api/Products",
-    update: "api/Products/",
-    delete: "api/Products/",
-  },
+
 };

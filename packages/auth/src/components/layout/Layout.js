@@ -60,7 +60,7 @@ const Layout = () => {
             },
           }}
         >
-          <Box sx={{ p: 3 }} >
+          <Box sx={{ p: 3 }}>
             <Typography
               align="center"
               style={{ margin: "5% 0" }}

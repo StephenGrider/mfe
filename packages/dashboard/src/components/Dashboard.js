@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Chart from './Chart/Chart';
 import ChartTwo from './Chart/ChartTwo';
 import Orders from './Orders/Orders';
-import DrawerMenu from './Menu/DrawerMenu';
+import DrawerMenu from './Menu';
 import { useStyles } from "./Styles/Styles"
 import GridContainer from "./chartList/components/Grid/GridContainer.js";
 import GridItem from "./chartList/components/Grid/GridItem.js";

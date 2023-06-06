@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { authenticateUser } from "../../../services/user.service";
+import { signin } from "../../../services/user.service";
 //import { authenticateUser } from "../../../services/user.service";
 
 export const validateText = (value) => {
@@ -40,13 +40,14 @@ export const handlesubmit = async (
     password: values.password,
   };
  
-  authenticateUser(user)
-    .then((res) => {  
-      if (res && res.code === 200) {
+  signin(user)
+    .then((res) => { 
+      console.log("res================", res) 
+      if (res && res.status === 200) {
         setMessageTitle("success");
         setMessage(res.message);
         sessionStorage.setItem("username", username);
-        sessionStorage.setItem("jwttoken", res.jwtToken);
+        sessionStorage.setItem("jwttoken", res.data.jwtToken);
         alert(res.message)
         usenavigate.push("/dashboard");
       } else if (res && res.code === 406) {
