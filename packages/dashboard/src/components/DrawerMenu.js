@@ -78,9 +78,9 @@ const StyledBadge = withStyles((theme) => ({
 const DrawerMenu = props => {
     const { history } = props;
     useEffect(() => {
-        setTimeout(() =>{
+    
             (sessionStorage.getItem("statusCode") === null || sessionStorage.length === 0) && history.push("/auth/signin");
-        },1800000)
+      
        
     }, [sessionStorage])
     const classes = useStyles();

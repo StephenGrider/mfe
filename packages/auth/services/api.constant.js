@@ -1,5 +1,5 @@
 export const ApiConstants = {
-  baseUrl: "https://localhost:7007/",
+  baseUrl: process.env.REACT_APP_API_URL,
   defaultHeader: {
     "Content-Type": "application/json",
   },

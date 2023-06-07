@@ -5,7 +5,7 @@ import ChartTwo from './ChartTwo';
 import Orders from './Orders';
 import DrawerMenu from './DrawerMenu';
 import { useStyles } from './Styles';
-import ProfileHelpers, { handlePasswordUpdate } from './ProfileHelpers';
+import ProfileHelpers, { handleLogout, handlePasswordUpdate } from './ProfileHelpers';
 import { useHistory } from 'react-router-dom';
 
 
@@ -22,44 +22,40 @@ import {
   Divider,
 } from '@material-ui/core';
 import UserGrid from './UserGrid';
+import SnackbarAlert from '../../../auth/src/components/notification/SnackbarAlert';
 
 export default function Profile(props) {
   const classes = useStyles();
   const history = useHistory();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const url = "https://localhost:7007/api/Users/"+sessionStorage.getItem("username"); // Update the URL with the correct endpoint
-  // const url = 'https://localhost:7007/api/Users/5:int';
+  const url = "https://localhost:7007/api/Users/" + sessionStorage.getItem("username"); // Update the URL with the correct endpoint
+
   const [data, setData] = useState([]);
- 
+  const [alert, setAlert] = useState("");
+  const [alertType, setAlertType] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   const formik = ProfileHelpers({
     submit: async (values) => {
-      formik.isValid && handlePasswordUpdate(values, data, history, formik.resetForm);
+      formik.isValid && handlePasswordUpdate(values, data, history, formik.resetForm, setShowAlert, setAlertType, setAlert);
     },
     // data, // Pass data as a prop to ProfileHelpers
   });
-  
-  
+
   useEffect(() => {
     fetchInfo();
   }, []);
 
   const fetchInfo = () => {
-    return fetch(url,{
-        headers: { "Authorization": 'Bearer '+sessionStorage.getItem("jwttoken")
+    return fetch(url, {
+      headers: {
+        "Authorization": 'Bearer ' + sessionStorage.getItem("jwttoken")
       }
     })
       .then((res) => res.json())
-      .then(
-        (d) => 
-        {
-      
-          setData(d)
-        }
-        );
+      .then((d) => {setData(d)});
   };
 
-  console.log('data=====', Array(data));
   sessionStorage.setItem('fullnameUser', data.firstName + ' ' + data.lastName);
 
 
@@ -68,15 +64,26 @@ export default function Profile(props) {
   return (
     <div className={classes.root}>
       <DrawerMenu />
-      <Container style={{width:"100%"}} className={classes.content}>
+      <SnackbarAlert
+        title={alertType}
+        message={alert}
+        showAlert={showAlert}
+        handleClose={() => {
+          setShowAlert(false);
+          if(alertType=== "success"){
+            handleLogout(history);
+          }         
+        }}
+      />
+      <Container style={{ width: "100%" }} className={classes.content}>
         <div className={classes.appBarSpacer} />
 
-        <Container style={{width:"100%"}} className={classes.content}>
+        <Container style={{ width: "100%" }} className={classes.content}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6}>
               <form onSubmit={formik.handleSubmit}
-            className={classes.form}
-            noValidate>
+                className={classes.form}
+                noValidate>
                 <Card>
                   <CardHeader subheader="Update password" title="Password" />
                   <Divider />
@@ -104,7 +111,7 @@ export default function Profile(props) {
                       name="newPassword"
                       type="password"
                       variant="outlined"
-                      error={formik.touched.newPassword && formik.errors.newPassword}
+                      error={formik.touched.newPassword && formik.errors.newPassword ? true : false}
                       helperText={formik.touched.newPassword && formik.errors.newPassword}
                       value={formik.values.newPassword}
                       onChange={formik.handleChange}
@@ -141,7 +148,7 @@ export default function Profile(props) {
                   Array(data).map((types) => (
                     <Grid item container direction="column" align="start" spacing={1} key={types.id}>
                       <Typography gutterBottom variant="h6">
-                        {types.firstName + types.lastName}
+                        {types.firstName + " " + types.lastName}
                       </Typography>
 
                       <Typography variant="body1" gutterBottom color="textSecondary">

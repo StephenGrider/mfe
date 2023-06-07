@@ -206,7 +206,7 @@ export default function ContactUs() {
           let regobj = { "username": username, "password": password,"role":"Admin"};
           if (IsValidate()) {
           //console.log(regobj);
-          fetch("https://localhost:7007/api/Users", {
+          fetch(process.env.REACT_APP_API_URL+"/Users", {
               method: "POST",
               headers: { 'content-type': 'application/json' },
               body: JSON.stringify(regobj)

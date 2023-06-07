@@ -36,7 +36,7 @@ export default function SignUp() {
         handleClose={() => {
           setShowAlert(false);
           if (alertType === 'success') {
-            usenavigate.push("/dashboard");
+            usenavigate.push("/auth/signin");
           }
         }}
       />

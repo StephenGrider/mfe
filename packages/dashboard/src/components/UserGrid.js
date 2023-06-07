@@ -100,7 +100,7 @@ const UserGrid = () => {
   }, []);
 
   const fetchUserData = (id) => {
-    const url = `https://localhost:7007/api/Users/${id}:int`;
+    const url = `${process.env.REACT_APP_API_URL}/Users/${id}:int`;
     fetch(url, {
       headers: { Authorization: sessionStorage.getItem("jwttoken") },
     })
@@ -134,7 +134,7 @@ const UserGrid = () => {
 
   const handleDelete = () => {
     const id = deleteId;
-    fetch(`https://localhost:7007/api/Users/${id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/Users/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
