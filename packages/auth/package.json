@@ -10,6 +10,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "axios": "^1.4.0",
+    "dotenv-webpack": "^8.0.1",
     "file-loader": "^6.2.0",
     "formik": "^2.2.9",
     "react": "^17.0.1",
