@@ -7,14 +7,18 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/data-grid": "^4.0.0-alpha.37",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.61",
     "file-loader": "^6.2.0",
+    "formik": "^2.4.1",
     "react": "^17.0.1",
     "react-chartist": "^0.14.4",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "recharts": "^2.6.2",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",

@@ -21,6 +21,7 @@ import {
   CardHeader,
   Divider,
 } from '@material-ui/core';
+import UserGrid from './UserGrid';
 
 export default function Profile(props) {
   const classes = useStyles();
@@ -165,6 +166,7 @@ export default function Profile(props) {
               <Paper className={classes.paper}>
                 <Orders />
               </Paper>
+              <UserGrid />
             </Grid>
           </Grid>
         </Container>

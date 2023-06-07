@@ -35,7 +35,9 @@ export default function SignUp() {
         showAlert={showAlert}
         handleClose={() => {
           setShowAlert(false);
-          usenavigate.push("/dashboard");
+          if (alertType === 'success') {
+            usenavigate.push("/dashboard");
+          }
         }}
       />
       <Container component="main" maxWidth="xs">

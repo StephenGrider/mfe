@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { updatePassword } from "../services/user.service";
+import { updatePassword } from "../../../container/src/services/user.service";
 
 export  const handlePasswordUpdate = (values,data,history, resetForm) => {
   //const history = useHistory();

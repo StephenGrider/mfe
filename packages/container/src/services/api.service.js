@@ -18,14 +18,14 @@ export const post = ({ url, body }) => {
 };
 
 export const put = ({ url, body, params = null }) => {
-  return client.post(url, body, params && { params: params });
+  return client.put(url, body, params && { params: params });
 };
 
 export const delete_ = ({ url, params = null }) => {
   return client.delete(url, params && { params: params });
 };
 
-export const patch = ({ url, params = null }) => {
+export const patch = ({ url, body, params = null }) => {
   return client.patch(url, body, params && { params: params });
 };
 
