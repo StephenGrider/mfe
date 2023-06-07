@@ -35,7 +35,7 @@ display:"none"
     // position: "fixed",
     width: "100%",
     "@media (min-width: 992px)": {
-    height: "100vh",
+    height: "120vh",
     },
     
     //alignItems: "center",
@@ -50,7 +50,7 @@ display:"none"
 display:"flex",
 position:"relative",
 "@media (min-width: 992px)": {
-height:" 100vh",
+height:"120vh",
 },
 alignContent: "flex-end",
 justifyContent: "flex-end",

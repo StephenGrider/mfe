@@ -15,6 +15,7 @@ const signupForm = (props) => {
       firstName: "",
       lastName: "",
       userName: "",
+      role:"",
       password: "",
       confirmPassword: "",
       dateOfBirth: "",
@@ -23,6 +24,7 @@ const signupForm = (props) => {
     validationSchema: Yup.object({
       firstName: Yup.string().required("First Name is required.").max(255),
       lastName: Yup.string().required("Last Name is required.").max(255),
+      role: Yup.string().required("Role is required."),
       userName: Yup.string()
         .required("Username is required.")
         .max(255)
