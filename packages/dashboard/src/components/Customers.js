@@ -21,7 +21,7 @@ export default function Customers() {
   return (
     <div className={classes.root}>
      <DrawerMenu />
-      <Container maxWidth="xxl" className={classes.content}>
+      <Container  className={classes.content} style={{width:"100%"}}>
         <div className={classes.appBarSpacer} />
         <div className={classes.cardLayout}>
           <Paper variant="outlined">
@@ -96,7 +96,7 @@ export default function Customers() {
             </div>
           </Paper>
         </div>
-        <Container maxWidth="xxl" className={classes.content}>
+        <Container  style={{width:"100%"}} className={classes.content}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Paper className={classes.paper}>

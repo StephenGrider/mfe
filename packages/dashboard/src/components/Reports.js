@@ -280,7 +280,7 @@ export default function Reports() {
       
       <DrawerMenu />
 
-      <Container maxWidth="xxl" className={classes.content}>
+      <Container style={{width:"100%"}} className={classes.content}>
         <div className={classes.appBarSpacer} />
         <div className={classes.cardLayout}>
           <Paper variant="outlined">
@@ -355,7 +355,7 @@ export default function Reports() {
             </div>
           </Paper>
         </div>
-        <Container maxWidth="xxl" className={classes.content}>
+        <Container style={{width:"100%"}} className={classes.content}>
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={7} lg={9}>

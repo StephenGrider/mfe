@@ -68,10 +68,10 @@ export default function Profile(props) {
   return (
     <div className={classes.root}>
       <DrawerMenu />
-      <Container maxWidth="xxl" className={classes.content}>
+      <Container style={{width:"100%"}} className={classes.content}>
         <div className={classes.appBarSpacer} />
 
-        <Container maxWidth="xxl" className={classes.content}>
+        <Container style={{width:"100%"}} className={classes.content}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={6}>
               <form onSubmit={formik.handleSubmit}

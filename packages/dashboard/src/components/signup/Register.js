@@ -47,7 +47,7 @@ function Register({userData, selectedUserId,handleClose,refreshGrid}) {
       };
      
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" >
        <div onClick={handleClose}  className={classes.closeButton} style={{display:"flex",justifyContent:"flex-end"}}>
           <CloseIcon />
         </div>

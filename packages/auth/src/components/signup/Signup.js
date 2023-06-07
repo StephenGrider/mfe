@@ -40,7 +40,7 @@ export default function SignUp() {
           }
         }}
       />
-      <Container component="main" maxWidth="xs">
+      <Container component="main" >
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />

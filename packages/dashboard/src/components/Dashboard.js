@@ -26,7 +26,7 @@ export default function Dashboard(props) {
   return (
     <div className={classes.root}>
       <DrawerMenu setData={props} />
-      <Container maxWidth="xxl" className={classes.content}>
+      <Container style={{width:"100%"}} className={classes.content}>
       <Grid container spacing={2}>
       <Grid item xs={12} md={12} lg={3}>
       <Card>
@@ -189,7 +189,7 @@ export default function Dashboard(props) {
             </div>
           </Paper>
         </div> */}
-        <Container maxWidth="xxl" className={classes.content}>
+        <Container style={{width:"100%"}} className={classes.content}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={12} lg={9}>
               <GridContainer>

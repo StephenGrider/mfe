@@ -90,7 +90,7 @@ export default function Album() {
           </span> 
         </div>
         
-        <Container className={classes.cardGrid} maxWidth="md">
+        <Container className={classes.cardGrid}  >
           {/* End hero unit */}
           <Main />
           <Grid container spacing={4}>
@@ -134,7 +134,7 @@ export default function Album() {
         </Container>
         <div className={classes.callToAction}>
         <svg style={{    marginBottom: "-10px", transform: "rotateX(180deg)"}} className="MuiBox-root css-1fcrnke" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1920 100.1"><path fill="#fff" d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"></path></svg>
-        <Container  maxWidth="md">
+        <Container >
         <CallToAction />
         </Container>
         </div>
