@@ -67,7 +67,6 @@ export const handlesubmit = async (
       password: values.password,
     })
       .then((res) => {
-        debugger;
         if (res && res.status === 200) {
           refreshGrid();
           setMessageTitle("success");
@@ -78,7 +77,6 @@ export const handlesubmit = async (
         }
       })
       .catch((err) => {
-        debugger;
         setMessageTitle("error");
         setMessage("Failed to update record");
       });

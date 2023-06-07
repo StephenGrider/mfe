@@ -21,23 +21,7 @@ const generateClassName = createGenerateClassName({
 const history = createBrowserHistory();
 
 export default () => {
-  //const [isSignedIn, setIsSignedIn] = useState(false);
-
-  // useEffect(() => {
-  //   if (isSignedIn) {
-  //     history.push('/dashboard');
-  //   }
-  // }, [isSignedIn]);
-
-  //console.log("3333333333",Number(sessionStorage.getItem("statusCode")))
-  // const [isSignedIn, setIsSignedIn] = useState(false);
-  // const login = () => {
-  //   setIsSignedIn(true);
-  // };
   
-  // const logout = () => {
-  //   setIsSignedIn(false);
-  // };
   return (
     <Router history={history}>
       <StylesProvider generateClassName={generateClassName}>

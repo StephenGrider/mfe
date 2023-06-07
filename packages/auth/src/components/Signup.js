@@ -108,7 +108,6 @@ export default function SignUp({ login }) {
           e.preventDefault();
           let regobj = { "username": username, "password": password,"role":"Admin"};
           if (IsValidate()) {
-          //console.log(regobj);
           fetch(process.env.REACT_APP_API_URL+"/Users", {
               method: "POST",
               headers: { 'content-type': 'application/json' },

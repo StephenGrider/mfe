@@ -204,20 +204,13 @@ export default function ContactUs() {
   const handlesubmit = (e) => {
           e.preventDefault();
           let regobj = { "username": username, "password": password,"role":"Admin"};
-          if (IsValidate()) {
-          //console.log(regobj);
+          if (IsValidate()) {         
           fetch(process.env.REACT_APP_API_URL+"/Users", {
               method: "POST",
               headers: { 'content-type': 'application/json' },
               body: JSON.stringify(regobj)
           }).then((res) => {
-              // toast.success('Registered successfully.')
-              // if(toast.success('Success')){
-              //   usenavigate.push('/auth/signin')
-              // }else{
-              //   usenavigate.push('/auth/signup')
-              // } 
-              //navigate('/login');
+              
           }).catch((err) => {
               //toast.error('Failed :' + err.message);
           });
